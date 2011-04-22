@@ -1,0 +1,75 @@
+\chapter{Web Services}
+Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \textit{cloud computing} (computação em nuvem) como arquitetura de TI.
+
+Essa arquitetura permite que as aplicações fiquem armazenadas em centros de armazenamento de terceiros\cite{Silva-Fabio-Rodrigues:2010:CloudComputing}, e sejam acessadas das máquinas clientes, reduzindo assim os custos com compra e manutenção de servidores, dispositivos para armazenamento, backups, etc. Apenas o acesso ao serviço é pago.
+
+De forma resumida, ao invés de instalar um editor de textos na máquina, ele funciona como um serviço armazenado no provedor e existe uma interface para acessá-lo. Todos os recursos de hardware necessários para rodá-lo, o espaço para armazenamento de documentos, etc. ficam no provedor e é tudo feito via navegador de internet.
+
+No lado pessoal, sites como Twitter e Facebook vem ganhando muita popularidade, principalmente pelo fato que os dados desses sites podem ser acessados em qualquer plataforma, sem nem precisar abrir o site.
+
+Em ambos os casos é necessária comunicação entre o dispositivo local e o serviço remoto. Essa comunicação é feita através dos chamados web services (serviços web).
+
+\section{Funcionamento}
+Para que um web servisse funcione, dois componentes são necessários: os servidores, que armazenam os dados e podem realizar operações sobre eles, e os clientes, que são os dispositivos que solicitam que essas operações sejam realizadas.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=7cm]{img/WebServices}%
+\caption{Arquitetura de um web service}%
+\label{fig:WebServices}%
+\end{figure}
+
+Na figura \ref{fig:WebServices}, podemos observar como é a arquitetura de um web service que pode ser considerado robusto. Nela, temos os dispositivos clientes (celulares, desktops, workstation) que se conectam ao provedor do serviço. Lá normalmente as chamadas passam por um firewall, que verifica se a porta que limita o acesso aos servidores onde o serviço está em execução, permitindo que apenas determinadas portas sejam acessadas. Então a requisição vai para os servidores proxy, responsáveis por balancear a carga. O proxy encaminha a requisição para um servidor que estiver menos ocupado e ele acessa a base de dados buscando o recurso solicitado. Feito isso, o resultado do processamento é enviado para o cliente que o solicitou.
+
+Para que ambas as partes possam se entender, elas devem conseguir se comunicar utilizando uma linguagem comum. A linguagem mais comum utilizada em web services é o XML\cite{Costa-Guilherme:2009:SOA}, uma linguagem de marcação padronizada pela W3C\cite{W3C:XML}, que a define como um formato para representar informações estruturadas na forma de texto. Sua adoção se dá principalmente por ele já ter sido criado pensando em internet, em facilidade de uso, em ser independente de linguagem ou plataforma e em ser legível, tanto para máquinas como para humanos.
+
+Estruturalmente falando, são documentos compostos por tags e atributos.	As tags são elementos envolvidos por \texttt{<>}, utilizados para expor informações, e os atributos são metadados dessas informações. Assim:
+\begin{lstlisting}[language=XML]
+<exemplo>
+  <documento autor="Christian Hartung">Exemplo de documento XML</documento>
+</exemplo>
+\end{lstlisting}
+\textit{exemplo} e \textit{documento} são tags. \textit{autor} é um atributo de \textit{documento}.
+
+\section{SOAP}
+O SOAP é um protocolo para troca de informações através da troca de mensagens XML sobre um protocolo de aplicação, normalmente o HTTP. O SOAP é uma recomendação da W3C\cite{W3C:SOAP} desde 2003.
+
+O SOAP também é um dos protocolos mais utilizados para criação de web services, principalmente pelo fato de ser aberto e ser baseado em XML, o que o torna compatível com qualquer linguagem de programação.
+
+Funciona da seguinte forma: quando o cliente se conecta ao serviço, obtém um documento listando os métodos disponíveis, seus parâmetros e tipos de dados. Este documento é chamado WSDL, uma linguagem tambem baseada em XML. A descrição de uma mensagem para obter os dados de uma cidade seria:
+\begin{lstlisting}[language=XML]
+<wsdl:message name="GetCidade">
+  <wsdl:part name="Cidade" type="xsd:string" />
+</wsdl:message>
+\end{lstlisting}
+Neste trecho é especificado um método getCidade, que recebe uma string como parâmetro.
+
+A resposta, uma string descrevendo a cidade, pode ser definida com a seguinte mensagem:
+\begin{lstlisting}[language=XML]
+<wsdl:message name="GetCidadeResponse">
+ <wsdl:part name="GetCidadeReturn" type="xsd:string" />
+</wsdl:message>
+\end{lstlisting}
+
+Tento este documento, o aplicativo cliente é capaz de fazer a requisição SOAP propriamente dita, enviando uma mensagem HTTP no seguinte formato:
+\begin{lstlisting}[language=XML]
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+  <soap:Header>
+  </soap:Header>
+  <soap:Body>
+    <m:GetCidade xmlns:m="http://www.ft.unicamp.br/tgi">
+      <m:Cidade>Limeira</m:Cidade>
+    </m:GetCidade>
+  </soap:Body>
+</soap:Envelope>
+\end{lstlisting}
+
+\section{Vantagens e Desvantagens}
+Utilizando web services, é possível dividir o processamento que uma aplicação precisa realizar entre os clientes e o servidor, tornando os aplicativos mais leves entre ambas as partes.
+
+Por serem baseados em padrões abertos, a grande maioria das linguagens de programação possui suas API's para criação de web services, e estas são compatíveis entre si, portanto o cliente e o servidor podem ser escritos em linguagens diferentes.
+
+Um problema dessas tecnologias é que o XML pode ser considerado um formato pesado para troca de informações, já que existe um conjunto de regras que devem ser seguidas, principalmente para garantir a compatibilidade.
+
+Outra preocupação que se deve ter é com como os dados trafegarão. Como o uso de web services envolve rede, ou mesmo a internet, é preciso que as requisições sejam criptografadas para evitar que os dados sejam obtidos por outros.
