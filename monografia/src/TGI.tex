@@ -1,0 +1,89 @@
+% Trabalho de Graduação Interdisciplinar - Christian Hartung
+\documentclass[times]{abnt}
+
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{graphics}
+\usepackage[pdftex]{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{mdwlist}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage[num]{abntcite}
+
+% A grossura padrão da linha de assinatura é 0. Aumento para 0.4, só para ela aparecer
+\setlength{\ABNTsignthickness}{0.4pt}
+\setlength{\ABNTsignskip}{2cm}
+\setlength{\ABNTsignwidth}{6.5cm}
+
+% Configurações da package listings
+\lstset{ %
+basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+numbers=left,                   % where to put the line-numbers
+numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+                                % will be numbered
+numbersep=6pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+tabsize=2,                      % sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+escapeinside={\%*}{*)},         % if you want to add a comment within your code
+frame=single,                   % adds a frame around the code
+}
+
+\autor{Christian Hartung}
+\titulo{Detecção de Vulnerabilidades XPath Injection em Web Services}
+\comentario{Trabalho de Graduação Interdisciplinar apresentado na Faculdade de Tecnologia - FT como requisito de conclusão do curso de Tecnologia em Análise e Desenvolvimento de Sistemas.}
+\instituicao{Universidade Estadual de Campinas - UNICAMP\par
+ Faculdade de Tecnologia - FT}
+\orientador[Orientadora:]{\small Prof. Tania Basso}
+\coorientador[Co-orientadora:]{\small Prof. Dr. Regina L. O. Moraes}
+\local{Limeira}
+\data{2011}
+
+\begin{document}
+\capa
+\folhaderosto
+
+% Errata
+
+% Dedicatória
+
+% Agradecimentos
+
+% Epígrafe
+
+\sumario
+
+\listoffigures
+
+\listoftables
+
+\pretextualchapter{Lista de siglas, abreviaturas e símbolos}
+\begin{description*}
+  \item[REST] \textit{Representational State Transfer} - Transferência de Estado Representacional
+  \item[HTTP] \textit{Hypertext Transfer Protocol} - Protocolo de Transferencia de Hipertexto
+  \item[API] \textit{Application Programming Interface} - Interface de Programação de Aplicações
+  \item[RPC] \textit{Remote Procedure Call} - Chamada Remota de Procedimento
+  \item[SOAP] \textit{Simple Object Access Protocol} - Protocolo Simples de Acesso a Objetos
+  \item[XML] \textit{Extensible Markup Language} - Linguagem de Marcação Extensível
+  \item[WSDL] \textit{Web Services Description Language} - Linguagem de Descrição de Serviços Web
+\end{description*}
+
+\begin{resumo}
+ Serviços web podem apresentar vulnerabilidades de segurança. Scanners de vulnerabilidades são ferramentas capazes de detectar vulnerabilidades de segurança em serviços web. O objetivo do trabalho é avaliar a segurança de serviços web em relação à vulnerabilidade do tipo \emph{XPath Injection} e também avaliar a eficácia de scanners de vulnerabilidades na detecção dessas vulnerabilidades.
+\end{resumo}
+
+\input{WebServices}
+\input{XPath}
+
+\bibliography{bibliografia}
+\end{document}

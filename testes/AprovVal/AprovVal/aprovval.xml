@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<VALCOMPRAS>
+  <VALOR VALUE="500" NUMCOT="1">
+    <USERS>
+      <USER NAME="EMILY"/>
+    </USERS>
+  </VALOR>
+  <VALOR VALUE="999" NUMCOT="1">
+    <USERS>
+      <USER NAME="TANIA"/>
+    </USERS>
+  </VALOR>
+  <VALOR VALUE="1000000" NUMCOT="1">
+    <USERS>
+      <USER NAME="CHRISTIAN"/>
+    </USERS>
+  </VALOR>
+</VALCOMPRAS>

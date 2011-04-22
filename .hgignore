@@ -1,0 +1,23 @@
+syntax: glob
+
+*.toc
+*.aux
+*.log
+*.bbl
+*.blg
+*.out
+*.pdf
+*.tps
+*.lof
+*.lot
+*.ilg
+*.siglax
+*.symbol*
+*.dll
+*~
+*.pdb
+bin/
+obj/
+*.suo
+*.swp
+*.pdb
