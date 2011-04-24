@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+<section>
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        <p>
+            @Html.Label("username", "Usuário:")
+            @Html.TextBox("username")
+        </p>
+        <p>
+            @Html.Label("password", "Senha:")
+            @Html.Password("password")
+        </p>
+        
+        <input type="submit" value"Entrar" />
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <p>@ViewBag.Message</p>
+    }
+</section>
+
