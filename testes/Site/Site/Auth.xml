@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<authentication>
+  <user login="chrishartung">
+    <name>Christian Hartung</name>
+    <password>senha</password>
+  </user>
+
+  <user login="taniabasso">
+    <name>Tania Basso</name>
+    <password>outra_senha</password>
+  </user>
+</authentication>
