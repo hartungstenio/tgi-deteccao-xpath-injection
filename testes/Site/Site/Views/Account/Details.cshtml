@@ -4,5 +4,14 @@
 
 <h2>Welcome, @ViewBag.Usuario</h2>
 
+@using (Html.BeginForm("Cotacao", "Account", FormMethod.Post))
+{
+    <p>
+        @Html.Label("numcot", "Número")
+        @Html.TextBox("numcot")
+        <input type="submit" value"Aprovar" />
+    </p>
+}
+
 @Html.ActionLink("Sair", "Logout");
 

@@ -61,5 +61,18 @@ namespace Site.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }
+
+        [Authorize]
+        public ActionResult Cotacao(string numcot)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(ConfigurationManager.AppSettings["AprovCotXML"]);
+
+            var n = doc.SelectNodes("//cotacao[@id='" + numcot + "' and usuarios/usuario/text() = '" + User.Identity.Name + "']");
+            if(n.Count > 0)
+                return View();
+            else
+                return RedirectToAction("Details");
+        }
     }
 }
