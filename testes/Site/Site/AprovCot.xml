@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<cotacoes>
+  <cotacao id="1">
+    <usuarios>
+      <usuario>chrishartung</usuario>
+    </usuarios>
+  </cotacao>
+  <cotacao id="2">
+    <usuarios>
+      <usuario>taniabasso</usuario>
+    </usuarios>
+  </cotacao>
+</cotacoes>
