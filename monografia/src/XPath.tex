@@ -1,12 +1,20 @@
 \chapter{XPath e XPath Injection}
-Uma das aplicações mais comuns do XML é o armazenamento de dados de forma estruturada e legível, tanto para máquinas como para humanos.
+A maioria das aplicações web utilizam sistemas gerenciadores de bancos de dados (SGBD) para guardar seus dados\cite{devWorks:XPath}, especialmente porque esses sistemas ajudam a garantir a integridade e facilitam a manipulação das informações armazenadas.
 
-Já existem tecnologias que permitem pegar os dados armazenados em um documento e convertê-los para outra representação, como uma página web ou um documento PDF, tecnologias que permitem que um documento XML referencie outro, tecnologias que garantam a autenticidade de um documento XML, como uma assinatura digital, e tecnologias que ajudam a navegar pelo documento XML. Esta última é conhecida como XPath.
+Porém utilizar um SGBD nem sempre é a melhor solução. Manter um SGBD é não é uma tarefa barata. É preciso um especialista em cada SGBD utilizado, monitoramento constante, aquisição de servidores e até mesmo adquirir licenças de uso desses sistemas, etc. Para uma aplicação pequena, esses gastos não compensariam.
+
+Também, se alguma customização for feita para um caso específico, não compensaria alterar a estrutura da base de dados da aplicação para cobrir esse único caso.
+
+Para esses tipos de situações, documentos XML se tornam uma opção interessante, com a vantagem de serem legíveis para a aplicação e para seus usuários e desenvolvedores.
+
+Além disso, já existem tecnologias que permitem pegar os dados armazenados em um documento e convertê-los para outra representação, como uma página web ou um documento PDF, tecnologias que permitem que um documento XML referencie outro, tecnologias que garantam a autenticidade de um documento XML, como uma assinatura digital, e tecnologias que ajudam a navegar pelo documento XML. Esta última é conhecida como Xpath.
 
 \section{Entendendo o XPath}
-Em uma consulta XPath, o documento XML é visto como uma árvore, onde cada tag, cada atributo, cada texto, cada comentário, etc. é tratado como um nó. A linguagem XPath permite navegar por essa árvore, selecionando um conjunto de nós baseado em uma série de critérios. Desde 1999, XPath é uma recomendação da W3C\cite{W3Schools:XPath}.
+A XML Path Language, ou Xpath, como é mais conhecida, é uma linguagem de consulta capaz de localizar elementos de um documento XML, até mesmo realizando cálculos com esses elementos\cite{W3C:XPath}.
 
-As principais expressões no XPath são:
+Em uma consulta Xpath, o documento XML é visto como uma árvore, onde cada tag, cada atributo, cada texto, cada comentário, etc. é tratado como um nó[3]. A linguagem Xpath permite navegar por essa árvore, selecionando um conjunto de nós baseado em uma série de critérios. Desde 1999, Xpath é uma recomendação da W3C\cite{W3C:XPath}.
+
+As principais expressões no Xpath descritas na tabela \ref{tab:expressoes-xpath}:
 \begin{table}
  \caption{Principais expressões XPath}
  \label{tab:expressoes-xpath}
@@ -30,88 +38,82 @@ As principais expressões no XPath são:
  \end{tabular}
 \end{table}
 
-O seguinte documento XML é utilizado para verificar os valores máximos de cotações de compra que um usuário pode aprovar:
-\begin{lstlisting}[language=XML]
-<?xml version="1.0" encoding="iso-8859-1"?>
-<VALCOMPRAS>
-  <VALOR VALUE="500" NUMCOT="1">
-    <USERS>
-      <USER NAME="EMILY"/>
-    </USERS>
-  </VALOR>
-  <VALOR VALUE="999" NUMCOT="1">
-    <USERS>
-      <USER NAME="TANIA"/>
-    </USERS>
-  </VALOR>
-  <VALOR VALUE="1000000" NUMCOT="1">
-    <USERS>
-      <USER NAME="CHRISTIAN"/>
-    </USERS>
-  </VALOR>
-</VALCOMPRAS>
-\end{lstlisting}
+Considere o documento XML da figura \ref{fig:ExemploXPath}, extraído de uma aplicação real. Este documento é utilizado para controlar a aprovação de cotações de compra em um sistema ERP, baseando-se no valor da cotação. Cada elemento VALOR lista os logins dos usuários que podem aprovar até aquele valor de cotação. No caso, o usuário EMILY pode aprovar cotações de até R\$500, o usuário TANIA pode aprovar cotações de até R\$999 e o usuário CHRISTIAN  pode aprovar cotações de até R\$1.000.000.
 
-A estão algumas consultas XPath aplicadas nesse documento, e se seus resultados:
-\begin{description*}
-  \item[VALCOMPRAS] Seleciona todos os filhos do elemento raiz (VALCOMPRAS)
-  \item[/VALCOMPRAS] Seleciona o elemento raiz
-  \item[VALCOMPRAS/VALOR] Seleciona todos os elementos \texttt{VALOR} filhos diretos de \texttt{VALCOMPRAS}
-  \item[VALCOMPRAS//USER] Seleciona todos os elementos \texttt{USER} descendentes de \texttt{VALCOMPRAS}. Não é necessário ser um filho direto
-  \item[//@VALUE] Seleciona todos os atributos \texttt{VALUE} do documento 
-\end{description*}
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=7cm]{img/ExemploXPath}%
+ \caption{Documento XML de exemplo para consultas}%
+ \label{fig:ExemploXPath}%
+\end{figure}
 
-Para filtrar nós, faz-se o uso de predicados, expressões entre colchetes. A seguir estão alguns exemplos de consultas com predicados e seus resultados:
-\begin{description*}
-	\item[VALCOMPRAS/VALOR[1]]\\
-	  Seleciona o primeiro elemento \texttt{VALOR} filho de \texttt{VALCOMPRAS}
-	\item[VALCOMPRAS/VALOR[last()]]\\
-	  Seleciona o último elemento \texttt{VALOR} filho de \texttt{VALCOMPRAS}
-	\item[VALCOMPRAS/VALOR[position() <= 2]]\\
-	  Seleciona os dois primeiros elementos \texttt{VALOR} filhos de \texttt{VALCOMPRAS}
-  \item[//VALOR[@VALUE]]\\
-    Seleciona todos os elementos \texttt{VALOR} que possuam um atributo \texttt{VALUE}
-  \item[//USERS[USER]]\\
-    Seleciona todos os elementos \texttt{USERS} que tenham uma tag \texttt{USER} como filho
-  \item[VALCOMPRAS/VALOR[@VALUE >= 1000]//USER]]\\
-    Seleciona todos os elementos \texttt{USER} que descendentes de um elemento \texttt{VALOR} com o atributo VALUE maior ou igual a 1000 
-\end{description*}
+A tabela \ref{tab:exemplos-expressoes-xpath} mostra algumas das principais expressões Path aplicadas ao documento XML da figura \ref{fig:ExemploXPath}, junto com os resultados dessas expressões.
 
-\section{XPath Injection}
-Além de transferir dados em formato XML, muitos desenvolvedores de web services optam por armazenar alguns dados internamente em documentos XML. Utilizando este formato, ao receber uma requisição, é realizada uma consulta Xpath sobre esses documentos utilizando os parâmetros passados, retornando obtendo a resposta desejada.
+\begin{table}[H]
+ \caption{Exemplos de expressões XPath e seus resultados}
+ \label{tab:exemplos-expressoes-xpath}
+ 
+ \begin{tabular}{lp{11cm}}
+  \toprule
+  \textbf{Expressão} & \textbf{Resultado} \\
+  \midrule
+  VALCOMPRAS & Seleciona todos os filhos do elemento raiz (VALCOMPRAS) \\
+  \midrule
+  /VALCOMPRAS & Seleciona o elemento raiz \\
+  \midrule
+  VALCOMPRAS/VALOR & Seleciona todos os elementos VALOR filhos diretos de VALCOMPRAS \\
+  \midrule
+  VALCOMPRAS//USER & Seleciona todos os elementos USER descendentes de VALCOMPRAS. Não é necessário ser um filho direto \\
+  \midrule
+  //@VALUE & Seleciona todos os atributos VALUE do documento \\
+  \bottomrule
+ \end{tabular}
+\end{table}
 
-O código a seguir, escrito em C\# mostra esse comportamento em um web service que consulta um documento XML parecido com o do exemplo anterior:
-\begin{lstlisting}[language=C++]
-XmlDocument doc = new XmlDocument();
-doc.Load(ConfigurationManager.AppSettings["aprovval.xml"]);
-var n= doc.SelectNodes("//VALOR[@VALUE >=" + valor + "]/USERS/USER/@NAME");
+Observe que as expressões são utilizadas para criar caminhos através do documento XML, daí o nome \textit{XML Path Language} (Linguagem de Caminhos pelo documento XML).
 
-var sb = new StringBuilder();
+Para tornar o caminho até determinado elemento mais específico, é possível filtrar as expressões. A tabela \ref{tab:exemplos-filtros-xpath} mostra exemplos de alguns filtros aplicados ao documento da figura \ref{fig:ExemploXPath} e o resultado da consulta.
 
-for (int i = 0; i < n.Count; i++)
-{
-  string s = n.Item(i).Value + ';';
-  if(!sb.ToString().Contains(s))
-  sb.Append(s);
-}
-ViewBag.Usuarios = sb.ToString();
-return View();
-\end{lstlisting}
+\begin{table}[H]
+ \caption{Exemplos de expressões XPath e seus resultados}
+ \label{tab:exemplos-filtros-xpath}
+ 
+ \begin{tabular}{lp{11cm}}
+  \toprule
+  \textbf{Expressão} & \textbf{Resultado} \\
+  \midrule
+  VALCOMPRAS/VALOR[1] & Seleciona o primeiro elemento VALOR filho de VALCOMPRAS \\
+  \midrule
+  VALCOMPRAS/VALOR[last()] & Seleciona o último elemento VALOR filho de VALCOMPRAS \\
+  \midrule
+  VALCOMPRAS/VALOR[position() <= 2] & Seleciona os dois primeiros elementos VALOR filhos de VALCOMPRAS \\
+  \midrule
+  //VALOR[@VALUE] & Seleciona todos os elementos VALOR que possuam um atributo VALUE \\
+  \midrule
+  //USERS[USER] & Seleciona todos os elementos USERS que tenham uma tag USER como filho. \\
+  \midrule
+  VALCOMPRAS/VALOR[@VALUE >= 1000]//USER & Seleciona todos os elementos USER que descendentes de um elemento VALOR com o atributo VALUE maior ou igual a 1000 \\
+  \midrule
+  //VALOR[@VALUE < 100 or @VALUE > 500] & Seleciona todos os elementos VALOR que tenham o elemento VALUE menor que 100 ou maior que 500 \\
+  \bottomrule
+ \end{tabular}
+\end{table}
 
-Na linha 3, é realizada uma consulta XPath baseada em um parâmetro para o Web Service. A ideia dessa consulta é obter todos os nomes de usuário que podem aprovar cotações de determinado valor. Supondo que a cotação de compras seja de R\$1000, essa consulta ficaria como:
-\begin{lstlisting}[numbers=none]
-//VALOR[@VALUE >= 1000]/USERS/USER/@NAME
-\end{lstlisting}
-o que retorna a lista de nomes corretamente.
+\subsection{Xpath Injection}
+Segundo \cite{WASC:XPath}, Xpath Injection é uma técnica para explorar aplicações que montam consultas Xpath a partir de dados fornecidos pelo usuário.
 
-Se este parâmetro \texttt{valor} tiver o formato de uma consulta XPath, é possível retornar usuários que não tenham permissão para aprovar este valor. Por exemplo, se o parâmetro tiver o formato \texttt{1000 | USERS}, a consulta ficaria como:
-\begin{lstlisting}[numbers=none]
- //VALOR[@VALUE >= 1000 | USERS]/USERS/USER/@NAME
-\end{lstlisting}
-retornando os nomes de todos os usuários no documento, independente do valor permitido. Da mesma forma, se a consulta realizada tiver o formado
-\begin{lstlisting}[numbers=none]
- //VALOR[@VALUE >= 1000 | //@NAME="EMILY"]/USERS/USER/@NAME
-\end{lstlisting}
-o nome do usuário EMILY será retornado independente do valor da cotação.
+O código na figura \ref{fig:ExemploCSharp}, escrito em C\#, mostra esse comportamento em uma aplicação que consulta o documento XML da figura \ref{fig:ExemploXPath} para obter uma lista com todos os usuários que podem aprovar cotações de compra de um determinado valor.
 
-A esse tipo de manipulação da consulta realizada no documento XML é dado o nome \emph{XPath Injection}.
+\begin{figure}[h]
+ \centering
+ \includegraphics[width=13cm]{img/ExemploCSharp}%
+ \caption{Código C\# executando uma consulta XPath}%
+ \label{fig:ExemploCSharp}%
+\end{figure}
+
+Na linha 3 é feita a consulta Xpath baseando-se no valor de um campo de entrada. Supondo que a cotação de compras seja de R\$1000, essa consulta ficaria ``\texttt{//VALOR[@VALUE >= 1000]/USERS/USER/@NAME}'' o que retorna a lista de nomes corretamente.
+
+Como não existe nenhuma validação deste campo antes de seu uso, o usuário pode informar qualquer conteúdo para este campo. Por exemplo, se o parâmetro tiver o formato 1000 or 1 = 1, a consulta ficaria ``\texttt{//VALOR[@VALUE >= 1000 or 1 = 1]/USERS/USER/@NAME}'' retornando os nomes de todos os usuários no documento, independente do valor permitido, já que a condição 1 = 1 será sempre verdadeira.
+
+\subsection{Evitando Xpath Injection}
+A melhor maneira de evitar este tipo de ataque é assumir que todos os dados de entrada são suspeitos e precisam ser validados.
