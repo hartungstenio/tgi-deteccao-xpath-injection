@@ -7,7 +7,16 @@ Também, se alguma customização for feita para um caso específico, não compensari
 
 Para esses tipos de situações, documentos XML se tornam uma opção interessante, com a vantagem de serem legíveis para a aplicação e para seus usuários e desenvolvedores.
 
-Além disso, já existem tecnologias que permitem pegar os dados armazenados em um documento e convertê-los para outra representação, como uma página web ou um documento PDF, tecnologias que permitem que um documento XML referencie outro, tecnologias que garantam a autenticidade de um documento XML, como uma assinatura digital, e tecnologias que ajudam a navegar pelo documento XML. Esta última é conhecida como Xpath.
+\section{XML}
+O (eXtensible Markup Language) XML é uma linguagem de marcação padronizada pela W3C[3], que a define como um formato para representar informações estruturadas na forma de texto. Sua adoção se dá principalmente pelo fato de ter sido criada pensando em internet, em facilidade de uso, em ser independente de plataforma ou linguagem de programação e em ser legível para máquinas e humanos.
+
+\figura{XMLUsuarios}{Exemplo de documento XML}{7cm}
+
+A figura \ref{fig:XMLUsuarios} mostra um documento XML. A primeira linha contém a declaração XML, que identifica a versão da especificação do XML sendo utilizada (1.0) e o conjunto de caracteres utilizado (UTF-8). Na segunda linha está o elemento raiz do documento (``usuarios''). Os documentos XML podem ser representados em estrutura de árvore[3], e tudo começa por este elemento. As 4 linhas seguintes definem elementos filhos da rais, ou ate mesmo filhos dos filhos da rais. A última linha encerra o elemento raiz, encerrando o documento. A figura \ref{fig:XMLUsuariosArvore} mostra esse mesmo documento em formato de árvore.
+
+\figura{XMLUsuariosArvore}{Representação de documento XML em árvore}{7cm}
+
+Os documentos XML são formados por duas construções principais: as tags (marcadores) e seus atributos. Uma tag é um elemento entre os sinais de ``<'' e ``>'' e os atributos são pares nome/valor que ficam dentro da tag. No exemplo da figura \ref{fig:XMLUsuarios}, ``usuarios'', ``usuario'', ``nome'' e ``nascimento'' são tags, enquanto ``login'' é um atributo da tag ``usuario''. A especificação do XML não define nenhuma tag ou atributo, cabendo ao desenvolvedor do sistema defini-los.
 
 \section{Entendendo o XPath}
 A XML Path Language, ou Xpath, como é mais conhecida, é uma linguagem de consulta capaz de localizar elementos de um documento XML, até mesmo realizando cálculos com esses elementos\cite{W3C:XPath}.
@@ -40,12 +49,7 @@ As principais expressões no Xpath descritas na tabela \ref{tab:expressoes-xpath}
 
 Considere o documento XML da figura \ref{fig:ExemploXPath}, extraído de uma aplicação real. Este documento é utilizado para controlar a aprovação de cotações de compra em um sistema ERP, baseando-se no valor da cotação. Cada elemento VALOR lista os logins dos usuários que podem aprovar até aquele valor de cotação. No caso, o usuário EMILY pode aprovar cotações de até R\$500, o usuário TANIA pode aprovar cotações de até R\$999 e o usuário CHRISTIAN  pode aprovar cotações de até R\$1.000.000.
 
-\begin{figure}[h]
- \centering
- \includegraphics[width=7cm]{img/ExemploXPath}%
- \caption{Documento XML de exemplo para consultas}%
- \label{fig:ExemploXPath}%
-\end{figure}
+\figura{ExemploXPath}{Documento XML de exemplo para consultas}{7cm}
 
 A tabela \ref{tab:exemplos-expressoes-xpath} mostra algumas das principais expressões Path aplicadas ao documento XML da figura \ref{fig:ExemploXPath}, junto com os resultados dessas expressões.
 
@@ -75,10 +79,7 @@ Observe que as expressões são utilizadas para criar caminhos através do document
 Para tornar o caminho até determinado elemento mais específico, é possível filtrar as expressões. A tabela \ref{tab:exemplos-filtros-xpath} mostra exemplos de alguns filtros aplicados ao documento da figura \ref{fig:ExemploXPath} e o resultado da consulta.
 
 \begin{table}[H]
- \caption{Exemplos de expressões XPath e seus resultados}
- \label{tab:exemplos-filtros-xpath}
- 
- \begin{tabular}{lp{11cm}}
+ \begin{tabular}{lp{17cm}}
   \toprule
   \textbf{Expressão} & \textbf{Resultado} \\
   \midrule
@@ -97,23 +98,21 @@ Para tornar o caminho até determinado elemento mais específico, é possível filtr
   //VALOR[@VALUE < 100 or @VALUE > 500] & Seleciona todos os elementos VALOR que tenham o elemento VALUE menor que 100 ou maior que 500 \\
   \bottomrule
  \end{tabular}
+ 
+ \caption{Exemplos de expressões XPath e seus resultados}
+ \label{tab:exemplos-filtros-xpath}
 \end{table}
 
-\subsection{Xpath Injection}
+\section{Xpath Injection}
 Segundo \cite{WASC:XPath}, Xpath Injection é uma técnica para explorar aplicações que montam consultas Xpath a partir de dados fornecidos pelo usuário.
 
 O código na figura \ref{fig:ExemploCSharp}, escrito em C\#, mostra esse comportamento em uma aplicação que consulta o documento XML da figura \ref{fig:ExemploXPath} para obter uma lista com todos os usuários que podem aprovar cotações de compra de um determinado valor.
 
-\begin{figure}[h]
- \centering
- \includegraphics[width=13cm]{img/ExemploCSharp}%
- \caption{Código C\# executando uma consulta XPath}%
- \label{fig:ExemploCSharp}%
-\end{figure}
+\figura{ExemploCSharp}{Código C\# executando uma consulta XPath}{13cm}
 
 Na linha 3 é feita a consulta Xpath baseando-se no valor de um campo de entrada. Supondo que a cotação de compras seja de R\$1000, essa consulta ficaria ``\texttt{//VALOR[@VALUE >= 1000]/USERS/USER/@NAME}'' o que retorna a lista de nomes corretamente.
 
 Como não existe nenhuma validação deste campo antes de seu uso, o usuário pode informar qualquer conteúdo para este campo. Por exemplo, se o parâmetro tiver o formato 1000 or 1 = 1, a consulta ficaria ``\texttt{//VALOR[@VALUE >= 1000 or 1 = 1]/USERS/USER/@NAME}'' retornando os nomes de todos os usuários no documento, independente do valor permitido, já que a condição 1 = 1 será sempre verdadeira.
 
-\subsection{Evitando Xpath Injection}
+\section{Evitando Xpath Injection}
 A melhor maneira de evitar este tipo de ataque é assumir que todos os dados de entrada são suspeitos e precisam ser validados.

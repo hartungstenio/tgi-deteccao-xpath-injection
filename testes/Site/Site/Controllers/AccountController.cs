@@ -24,28 +24,20 @@ namespace Site.Controllers
             XmlDocument doc = new XmlDocument();
             doc.Load(ConfigurationManager.AppSettings["AuthXML"]);
 
-            try
-            {
-                var x = doc.SelectNodes("//user[@login='" + Request.Form["username"] +
-                                        "' and password/text() = '" + Request.Form["password"] +
-                                        "']/name/text()");
+            var x = doc.SelectNodes("//user[@login='" + Request.Form["username"] +
+                                    "' and password/text() = '" + Request.Form["password"] +
+                                    "']/name/text()");
 
-                if (x.Count == 0)
-                {
-                    ViewBag.Message = "Usuário ou senha inválidos";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    FormsAuthentication.SetAuthCookie(Request.Form["username"], false);
-                    Session["Nome"] = x.Item(0).Value;
-                    return RedirectToAction("Details");
-                }
-            }
-            catch (Exception e)
+            if (x.Count == 0)
             {
                 ViewBag.Message = "Usuário ou senha inválidos";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                FormsAuthentication.SetAuthCookie(Request.Form["username"], false);
+                Session["Nome"] = x.Item(0).Value;
+                return RedirectToAction("Details");
             }
         }
 

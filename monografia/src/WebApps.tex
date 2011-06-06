@@ -1,0 +1,76 @@
+\chapter{Aplicações Web}
+Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI.
+
+Essa arquitetura permite que as aplicações fiquem armazenadas em centros de armazenamento de terceiros\cite{Silva-Fabio-Rodrigues:2010:CloudComputing}, e sejam acessadas das máquinas clientes, reduzindo assim os custos com compra e manutenção de servidores, dispositivos para armazenamento, backups, etc. O único requisito é que o cliente tenha um navegador de internet instalado.
+
+Funciona da seguinte forma: ao invés de instalar um editor de textos, uma planilha eletrônica, um editor apresentações, etc. na máquina, estes softwares funcionam como um serviço armazenado no provedor. Todos os recursos de hardware necessários para executá-lo, o espaço para armazenamento de documentos, etc. ficam no provedor. O usuário precisa apenas acessar o serviço através do navegador de internet e usá-lo.
+
+Aplicações  com essa característica de serem acessadas pelo navegador são conhecidas como \emph{web application}.
+
+\section{Histórico}
+Apesar de o termo \estrangeiro{Cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras \emph{Webapps} (\estrangeiro{Web Applications}, ou Aplicações Web) surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory}.
+
+Webapps funcionam utilizando uma arquitetura \emph{cliente-servidor}. O cliente (navegador de internet) solicita um recurso do servidor, que responde com uma representação desse recurso em um formato que o navegador pode entender: o HTML (\estrangeiro{Hypertext Markup Language}, ou Linguagem de Marcação de Hipertexto).
+
+O HTML sozinho é uma linguagem limitada\cite{About:InternetHistory}. Tudo que ele faz é dizer ao navegador como interpretar o conteúdo da página, então apenas páginas estáticas podem ser construídas com ele.
+
+Devido a essa limitação do HTML, as primeiras \estrangeiro{webapps} não passavam se sites que exibiam as páginas em determinada sequencia, baseando-se em dados de entrada do usuário.
+
+Com o tempo, novas tecnologias surgiram para permitir que mais pudesse ser feito com o HTML. A principal delas surgiu em 1995: as linguagens \emph{client-side}.
+
+Uma linguagem \estrangeiro{client-side} é uma linguagens de programação que é executada no lado \emph{cliente} da aplicação, ou seja, no navegador de internet. Elas permitiram que alguma lógica fosse adicionada às páginas HTML, tornando as \estrangeiro{webapps} mais iterativas. Hoje a principal linguagem \estrangeiro{client-side} é o JavaScript.
+
+Hoje em dia milhões de pessoas utilizam \estrangeiro{webapps} quando acessam o webmail, o bate-papo, etc.
+
+\section{Componentes de uma webapp}
+Como dito anteriormente, no lado cliente da aplicação o único requisito é um navegador de internet, que vai interpretar tudo que vier do servidor.
+
+As sessões seguintes descrevem os componentes necessários no lado servidor.
+
+\subsection{Servidor de dados}
+A maioria das aplicações web lidam com armazenamento de informações, temporária ou permanentemente. Isso pode ser feito utilizando Sistemas Gerenciadores de Banco de Dados (SGBD's) ou sistemas mais simples, que podem chegar a arquivos de texto.
+
+São as máquinas mais protegidos da empresa, já que os dados de todos os usuários da aplicação ficam armazenados nele.
+
+A configuração desses servidores tem um impacto muito grande na performance da aplicação. Essas são as máquinas que possuem hardware mais moderno e recebem investimentos com maior frequência.
+
+\subsection{Servidor HTTP}
+O servidor HTTP (\estrangeiro{Hypertext Transfer Protocol}, ou Protocolo de Transferência de Hipertexto), ou servidor web como é mais conhecido, é o núcleo da \estrangeiro{webapp}. Esses servidores recebem as requisições dos clientes e respondem enviando representações do que o cliente pediu. Essas representações podem ser imagens, vídeos, documentos HTML, etc.
+
+O HTTP é o protocolo padrão para transferência de dados pela internet e está na versão 1.1\cite{RFC:2616}. A figura \ref{fig:TemplateHTTP} mostra o formato de uma requisição HTTP.
+
+\figura{TemplateHTTP}{Formato de uma requisição HTTP}{7cm}
+
+\estrangeiro{Host}, \estrangeiro{Cookie} e \estrangeiro{From} são os cabeçalhos da requisição. Uma requisição pode ter qualquer quantidade de cabeçalhos, padronizados ou personalizados. Eles são utilizados para enviar meta-informações com cada requisição. Neste exemplo, \estrangeiro{Host} identifica o domínio que está sendo acessado, \estrangeiro{From} contém o endereço de e-mail do usuário que fez a requisição e \estrangeiro{Cookie} contém informações de autenticação em alguma aplicação.
+
+O \emph{método} utilizado na requisição indica o que o servidor deve fazer com o recurso transmitido. Dois métodos principais são utilizados em uma aplicação web: \emph{GET} e \emph{POST}.
+
+O cliente utiliza o método \texttt{GET} quando deseja obter recursos do servidor. A figura \ref{fig:HTTP-GET} mostra um exemplo de requisição \texttt{GET} para obter o recurso \texttt{usuarios/chrishartung} do servidor responsável pelo domínio \texttt{exemplo.com}. A página acessada para isso é \url{http://exemplo.com/usuarios/chrishartung}.
+
+\figura{HTTP-GET}{Requisição HTTP GET}{7cm}
+
+Já o método \texttt{POST} é utilizado quando o cliente deseja enviar informações para o servidor. Um uso comum dessa requisição na internet é para o preenchimento de formulários. A figura \ref{fig:HTTP-POST} mostra um exemplo de requisição \texttt{POST} que altera a instituição do usuário \texttt{chrishartung}.
+
+\figura{HTTP-POST}{Requisição HTTP POST}{7cm}
+
+\subsection{Linguagem \estrangeiro{server-side}}
+O servidor web sozinho é só é capaz de enviar conteúdo estático para o cliente.
+
+O lado servidor da aplicação (\emph{server-side}) também entende alguma linguagem de programação e ela é responsável por montar a resposta para a requisição dinamicamente, ler a gravar no servidor de dados, etc.
+
+Exemplos comuns de linguagens rodando no servidor são o PHP, ASP, JSP, ColdFusion, etc.
+
+\section{Vantagens das aplicações Web}
+Aplicações web vem ganhando muita atenção tanto em ambientes corporativos como no uso pessoal. Isso porque oferecem algumas vantagens sobre as aplicações de \textit{desktop}\cite{AJAX-PHP-WebApps}:
+\begin{description*}
+	\item[Fácil distribuição]. Basta um navegador e uma conexão com a internet ou intranet. Não é necessário que o departamento de TI instale a aplicação em cada estação da empresa;
+	\item[Independente de plataforma]. O usuário final pode usar Windows, Mac, Linux, Solaris, iPhone, etc. como sistema operacional e qualquer navegador disponível\footnote{Se a aplicação foi construída utilizando os padrões corretamente}.
+	\item[Dados centralizados]. Não há dados salvos na máquina do usuário. Tudo está no servidor.
+\end{description*}
+
+Alguns problemas também surgem ao utilizar essa arquitetura. Os principais deles são:
+\begin{description*}
+	\item[Dependência da rede]. Todos os usuários do sistema dependem da rede ou internet para utilizá-lo. Se ocorrer algum problema com esse link, todos os usuários ficarão comprometidos.
+	\item[Dependência do servidor]. Se o servidor cair, o sistema todo cai junto.
+	
+\end{description*}
