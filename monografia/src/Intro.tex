@@ -1,12 +1,24 @@
 \chapter{Introdução}
-Cada vez mais a sociedade moderna está dependente dos computadores para realização de suas atividades do cotidiano. Com isso a internet se tornou um item essencial em qualquer lugar.
+Cada vez mais a sociedade moderna está dependente dos computadores para realização de suas atividades cotidianas. Com isso a internet se tornou um item essencial para as pessoas.
 
-São compras realizadas e contas pagas sem a necessidade de sair de casa. Tudo que é necessário é um computador e uma conexão com a internet. Esses serviços que facilitam tanto a vida vão acumulando informações sobre os usuários, como localização, dados financeiros, e outros dados pessoais ou informações confidenciais e os usuários acreditam que essas informações estão bem protegidas. Mas isso nem sempre é verdade.
+São compras realizadas e contas pagas sem a necessidade de sair de casa. Só é necessário é um computador e uma conexão com a internet.
 
-Tome como exemplo a \emph{PSN} (\estrangeiro{PlayStation Netowork}), a rede utilizada pelo PlayStation 3 para organizar partidas \estrangeiro{online}, para comprar e baixar jogos, comunicação entre os usuários, dentre outros recursos. Recentemente uma vulnerabilidade foi encontrada nessa rede e vários dados de usuários foram obtidos por quem a explorou. Entre esses dados estavam informações sobre os cartões de crédito utilizados para fazer compras na PSN.
+Esses serviços que facilitam tanto a vida, podem acumular informações sobre os usuários, como, por exemplo, localização, dados financeiros, e outros dados pessoais ou informações confidenciais. Os usuários acreditam que essas informações estão bem protegidas, mas isso nem sempre é verdade.
 
-O caso da PSN mostra que mesmo os maiores serviços existentes estão sujeitos a todo tipo de vulnerabilidade e nem sempre ferramentas tradicionais como \estrangeiro{firewalls} e criptografia são o suficiente para protege-las.
+Tome como exemplo a \emph{PSN} (\estrangeiro{PlayStation Netowork}), a rede utilizada pelo console de vídeo-game \estrangeiro{PlayStation 3} para organizar partidas \estrangeiro{online}, para comprar e baixar jogos, realizar comunicação entre os usuários, dentre outros recursos. Recentemente uma vulnerabilidade foi encontrada\cite{info:PSN} nessa rede e vários dados de usuários foram obtidos por quem a explorou. Entre esses dados estavam informações sobre os cartões de crédito utilizados para fazer compras na PSN.
 
-Os \estrangeiro{scanners} de vulnerabilidade são ferramentas que fazem a análise das aplicações \estrangeiro{web} de forma automática. São capazes de detectar e reportar vulnerabilidades de segurança\cite{Tania:2010:Scanners}.
+O caso da PSN mostra que mesmo os maiores serviços existentes estão sujeitos a todo tipo de vulnerabilidade e nem sempre ferramentas tradicionais como \estrangeiro{firewalls} e criptografia são suficientes para protegê-las. Além disso, o objetivo dessas ferramentas tradicionais é proteger a rede. Elas não mitigam ataques a aplicações Web e, dessa forma, \estrangeiro{hackers} estão também com foco nessas aplicações, onde vulnerabilidades de segurança criadas, na maioria das vezes, por codificação não segura, representam maior risco\cite{dsn:2008:mapping_software_faults}.
 
-O objetivo deste trabalho é analisar a eficiência de alguns desses \estrangeiro{scanners} de vulnerabilidade para encontrar um tipo de vulnerabilidade específico: \estrangeiro{XPath Injection}.
+Um exemplo desse tipo de vulnerabilidade ocorreu no \emph{Twitter} em setembro de 2010. Apesar de os servidores do Twitter estarem devidamente protegidos, um erro no aplicação permitiu que código malicioso fosse executado na página, fazendo com que janelas \estrangeiro{pop-up} fossem abertas ao passar o \estrangeiro{mouse} sobre um \estrangeiro{link}.
+
+\estrangeiro{Scanners} de vulnerabilidade são ferramentas que fazem a análise das aplicações \estrangeiro{web} de forma automática com o objetivo de detectar e reportar vulnerabilidades de segurança\cite{Tania:2010:Scanners}. Para utilizar um \estrangeiro{scanner} de vulnerabilidade, é essecial confiar nos resultados oferecidos por ele, portanto a eficácia na detecção das vulnerabilidades desse \estrangeiro{scanner} deve ser avaliada. Essa avaliação é feita a partir de dois aspectos: falta de cobertura (quando o \estrangeiro{scanner} deixa de detectar vulnerabilidades que realmente existem na aplicação) e falsos positivos (o \estrangeiro{scanner} detecta vulnerabilidades que não existem na aplicação). Falsos positivos implicam desperdício de tempo para correções que de fato não são necessárias.
+
+O objetivo deste trabalho é analisar a eficácia de alguns desses \estrangeiro{scanners} de vulnerabilidade para encontrar um tipo de vulnerabilidade específico: \estrangeiro{XPath Injection}.
+
+Este trabalho está organizado da seguinte forma:
+\begin{description*}
+	\item[Seção 2:] introduz aplicações \estrangeiro{web} e serviços \estrangeiro{web}, as duas tecnologias que esses \estrangeiro{scanners} são capazes de analisar;
+	\item[Seção 3:] mostra conceitos de XML e XPath e descreve as vulnerabilidades do tipo \estrangeiro{XPath Injection};
+	\item[Seção 4:] apresenta o estudo realizado e os resultados obtidos;
+	\item[Seção 5:] conclusões e ideias para estudos futuros;
+\end{description*}

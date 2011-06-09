@@ -1,13 +1,17 @@
-\chapter{Aplicações Web}
-Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI.
+\chapter{Aplicações e Serviços Web}
+Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI (Tecnologia da Informação) \cite{Cloud:computerworld} \cite{Cloud:idgnow} \cite{Cloud:info:ml} \cite{Cloud:info:entrevista}.
 
 Essa arquitetura permite que as aplicações fiquem armazenadas em centros de armazenamento de terceiros\cite{Silva-Fabio-Rodrigues:2010:CloudComputing}, e sejam acessadas das máquinas clientes, reduzindo assim os custos com compra e manutenção de servidores, dispositivos para armazenamento, backups, etc. O único requisito é que o cliente tenha um navegador de internet instalado.
 
-Funciona da seguinte forma: ao invés de instalar um editor de textos, uma planilha eletrônica, um editor apresentações, etc. na máquina, estes softwares funcionam como um serviço armazenado no provedor. Todos os recursos de hardware necessários para executá-lo, o espaço para armazenamento de documentos, etc. ficam no provedor. O usuário precisa apenas acessar o serviço através do navegador de internet e usá-lo.
+Funciona da seguinte forma: ao invés de instalar um editor de textos, uma planilha eletrônica, um editor apresentações, etc. na máquina, estes softwares funcionam como um serviço armazenado em um provedor. Todos os recursos de hardware necessários para executá-lo, o espaço para armazenamento de documentos, etc. são responsabilidade desse provedor. O usuário precisa apenas acessar o serviço através do navegador de internet e usá-lo. Aplicações com essa característica de serem acessadas pelo navegador são conhecidas como \emph{web application}.
 
-Aplicações  com essa característica de serem acessadas pelo navegador são conhecidas como \emph{web application}.
+No lado pessoal, sites como Twitter e Facebook vem ganhando muita popularidade, principalmente pelo fato de eles serem acessados através de aplicativos rodando nos mais variados dispositivos, como desktops, workstations, celulares, consoles de vídeo-game, etc. Assim eles podem ser utilizados não importando onde a pessoa esteja. Neste caso onde existe a troca de informações entre o servidor e os vários dispositivos interligados utiliza-se um conceito chamado \emph{web service}.
 
-\section{Histórico}
+Este capítulo vai dar uma breve introdução do que são essas duas tecnologias, como funcionam e quais suas vantagens e desvantagens.
+
+\section{Aplicações Web}
+Uma \emph{webapp} (\estrangeiro{Web Application}, ou Aplicação Web) é qualquer aplicação que utilize um navegador de internet como cliente\cite{About:WebApps}.
+
 Apesar de o termo \estrangeiro{Cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras \emph{Webapps} (\estrangeiro{Web Applications}, ou Aplicações Web) surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory}.
 
 Webapps funcionam utilizando uma arquitetura \emph{cliente-servidor}. O cliente (navegador de internet) solicita um recurso do servidor, que responde com uma representação desse recurso em um formato que o navegador pode entender: o HTML (\estrangeiro{Hypertext Markup Language}, ou Linguagem de Marcação de Hipertexto).
@@ -18,23 +22,25 @@ Devido a essa limitação do HTML, as primeiras \estrangeiro{webapps} não passavam
 
 Com o tempo, novas tecnologias surgiram para permitir que mais pudesse ser feito com o HTML. A principal delas surgiu em 1995: as linguagens \emph{client-side}.
 
-Uma linguagem \estrangeiro{client-side} é uma linguagens de programação que é executada no lado \emph{cliente} da aplicação, ou seja, no navegador de internet. Elas permitiram que alguma lógica fosse adicionada às páginas HTML, tornando as \estrangeiro{webapps} mais iterativas. Hoje a principal linguagem \estrangeiro{client-side} é o JavaScript.
+Uma linguagem \estrangeiro{client-side} é uma linguagens de \estrangeiro{script} que é executada no lado \emph{cliente} da aplicação, ou seja, dentro do navegador de internet. Elas permitiram que alguma lógica fosse adicionada às páginas HTML, tornando as \estrangeiro{webapps} mais iterativas. Atualmente a principal linguagem \estrangeiro{client-side} é o \emph{JavaScript}, já que é a linguagem de \estrangeiro{script} padrão do HTML5\footnote{O HTML5 é a versão do HTML em desenvolvimento}\cite{whatwg:HTML}.
+
+Com o uso de JavaScript, as aplicações tem se tornado tão dinâmicas que já se assemelham aos aplicativos que rodam no \estrangeiro{desktop}, algumas até substituindo esses aplicativos.
 
 Hoje em dia milhões de pessoas utilizam \estrangeiro{webapps} quando acessam o webmail, o bate-papo, etc.
 
-\section{Componentes de uma webapp}
+\subsection{Componentes de uma webapp}
 Como dito anteriormente, no lado cliente da aplicação o único requisito é um navegador de internet, que vai interpretar tudo que vier do servidor.
 
 As sessões seguintes descrevem os componentes necessários no lado servidor.
 
-\subsection{Servidor de dados}
+\subsubsection{Servidor de dados}
 A maioria das aplicações web lidam com armazenamento de informações, temporária ou permanentemente. Isso pode ser feito utilizando Sistemas Gerenciadores de Banco de Dados (SGBD's) ou sistemas mais simples, que podem chegar a arquivos de texto.
 
 São as máquinas mais protegidos da empresa, já que os dados de todos os usuários da aplicação ficam armazenados nele.
 
 A configuração desses servidores tem um impacto muito grande na performance da aplicação. Essas são as máquinas que possuem hardware mais moderno e recebem investimentos com maior frequência.
 
-\subsection{Servidor HTTP}
+\subsubsection{Servidor HTTP}
 O servidor HTTP (\estrangeiro{Hypertext Transfer Protocol}, ou Protocolo de Transferência de Hipertexto), ou servidor web como é mais conhecido, é o núcleo da \estrangeiro{webapp}. Esses servidores recebem as requisições dos clientes e respondem enviando representações do que o cliente pediu. Essas representações podem ser imagens, vídeos, documentos HTML, etc.
 
 O HTTP é o protocolo padrão para transferência de dados pela internet e está na versão 1.1\cite{RFC:2616}. A figura \ref{fig:TemplateHTTP} mostra o formato de uma requisição HTTP.
@@ -47,30 +53,64 @@ O \emph{método} utilizado na requisição indica o que o servidor deve fazer com o
 
 O cliente utiliza o método \texttt{GET} quando deseja obter recursos do servidor. A figura \ref{fig:HTTP-GET} mostra um exemplo de requisição \texttt{GET} para obter o recurso \texttt{usuarios/chrishartung} do servidor responsável pelo domínio \texttt{exemplo.com}. A página acessada para isso é \url{http://exemplo.com/usuarios/chrishartung}.
 
-\figura{HTTP-GET}{Requisição HTTP GET}{7cm}
+\figura{HTTP-GET}{Requisição HTTP GET}{5cm}
 
 Já o método \texttt{POST} é utilizado quando o cliente deseja enviar informações para o servidor. Um uso comum dessa requisição na internet é para o preenchimento de formulários. A figura \ref{fig:HTTP-POST} mostra um exemplo de requisição \texttt{POST} que altera a instituição do usuário \texttt{chrishartung}.
 
-\figura{HTTP-POST}{Requisição HTTP POST}{7cm}
+\figura{HTTP-POST}{Requisição HTTP POST}{10cm}
 
-\subsection{Linguagem \estrangeiro{server-side}}
-O servidor web sozinho é só é capaz de enviar conteúdo estático para o cliente.
+\subsubsection{Linguagem \estrangeiro{server-side}}
+O servidor web sozinho só é capaz de enviar conteúdo estático para o cliente.
 
 O lado servidor da aplicação (\emph{server-side}) também entende alguma linguagem de programação e ela é responsável por montar a resposta para a requisição dinamicamente, ler a gravar no servidor de dados, etc.
 
 Exemplos comuns de linguagens rodando no servidor são o PHP, ASP, JSP, ColdFusion, etc.
 
-\section{Vantagens das aplicações Web}
+\subsection{Vantagens das aplicações Web}
 Aplicações web vem ganhando muita atenção tanto em ambientes corporativos como no uso pessoal. Isso porque oferecem algumas vantagens sobre as aplicações de \textit{desktop}\cite{AJAX-PHP-WebApps}:
 \begin{description*}
-	\item[Fácil distribuição]. Basta um navegador e uma conexão com a internet ou intranet. Não é necessário que o departamento de TI instale a aplicação em cada estação da empresa;
-	\item[Independente de plataforma]. O usuário final pode usar Windows, Mac, Linux, Solaris, iPhone, etc. como sistema operacional e qualquer navegador disponível\footnote{Se a aplicação foi construída utilizando os padrões corretamente}.
-	\item[Dados centralizados]. Não há dados salvos na máquina do usuário. Tudo está no servidor.
+	\item[Fácil distribuição:] Basta um navegador e uma conexão com a internet ou intranet. Não é necessário que o departamento de TI instale a aplicação em cada estação da empresa;
+	\item[Independente de plataforma:] O usuário final pode usar Windows, Mac, Linux, Solaris, iPhone, etc. como sistema operacional e qualquer navegador disponível\footnote{Se a aplicação foi construída utilizando os padrões corretamente}.
+	\item[Dados centralizados:] Não há dados salvos na máquina do usuário. Tudo está no servidor.
 \end{description*}
 
 Alguns problemas também surgem ao utilizar essa arquitetura. Os principais deles são:
 \begin{description*}
-	\item[Dependência da rede]. Todos os usuários do sistema dependem da rede ou internet para utilizá-lo. Se ocorrer algum problema com esse link, todos os usuários ficarão comprometidos.
-	\item[Dependência do servidor]. Se o servidor cair, o sistema todo cai junto.
-	
+	\item[Dependência da rede:] Todos os usuários do sistema dependem da rede ou internet para utilizá-lo. Se ocorrer algum problema com esse link, todos os usuários ficarão comprometidos.
+	\item[Dependência do servidor:] Se o servidor cair, o sistema todo cai junto.
 \end{description*}
+
+\section{Serviços Web}
+Um \emph{web service} (serviço web) é um software que implementa diversas tecnologias para transferência e representação de dados que, quando combinadas, que permitem a comunicação entre os diversos dispositivos conectados em uma rede.
+
+Diferentemente das \estrangeiro{webapps} onde único cliente é o navegador, um \estrangeiro{web service} pode ter os mais variados tipos de clientes, como aplicativos próprios, aplicativos de terceiros, linha de comando, celulares e até mesmo \estrangeiro{webapps}.
+
+\subsection{Funcionamento}
+Um \estrangeiro{web service} é um software que fica no servidor e que responde a requisições dos clientes.
+
+\figura{WebServiceLoja}{Exemplo de aplicação web utilizando web services}{10cm}
+
+A figura \ref{fig:WebServiceLoja} como funciona uma aplicação web de cotação de preços que consome os serviços oferecidos pelos diversos \estrangeiro{web services} das lojas virtuais. A \emph{Aplicação Cliente} é o navegador de internet rodando no computador do usuário. Quando o usuário consulta o preço de um produto, a aplicação web \emph{Sistema de Pesquisa} consulta nos \emph{web services} das lojas virtuais a cotação deste produto. Com as respostas obtidas dos \estrangeiro{web services}, o Sistema de Pesquisa monta a página com as informações que o cliente deseja.
+
+Antes de começar a implementação de um web service, é preciso definir as tecnologias que serão utilizadas para representar os dados e para transferi-los.
+
+\subsubsection{Representação dos dados}
+A tecnologia para representação dos dados é o idioma que nosso web service fala. De nada adianta nosso professor falar latim se nossos alunos entendem apenas português. Da mesma forma, de nada adianta o servidor enviar os dados utilizando uma representação que os clientes não são capazes de interpretar.
+
+Não existe nenhuma norma que obrigue a utilizar determinada representação para desenvolvimento de um web service, mas o XML é a representação mais utilizada\cite{Costa-Guilherme:2009:SOA}. Mais detalhes sobre XML no próximo capítulo.
+
+\subsubsection{Transferência das informações}
+Além de falarem o mesmo idioma, a forma como a informação é transmitida também deve ser compatível entre o cliente e o servidor.
+
+De nada adianta o cliente fazer requisições utilizando um protocolo que o servidor não entende, da mesma forma que de nada adianta o servidor responder às requisições de uma forma que o cliente não possa interpretar.
+
+Assim como nas aplicações web, o protocolo utilizado para transferência de dados em \estrangeiro{web services} é o HTTP.
+
+\subsection{Vantagens e Desvantagens}
+Utilizando web services, é possível dividir o processamento que uma aplicação precisa realizar entre os clientes e o servidor, tornando os aplicativos mais leves entre ambas as partes.
+
+Por serem baseados em padrões abertos, a grande maioria das linguagens de programação possui suas API's para criação de web services, e estas são compatíveis entre si, portanto o cliente e o servidor podem ser escritos em linguagens diferentes.
+
+Um problema dessas tecnologias é que o XML pode ser considerado um formato pesado para troca de informações, já que existe um conjunto de regras que devem ser seguidas, principalmente para garantir a compatibilidade.
+
+Outra preocupação que se deve ter é com como os dados trafegarão. Como o uso de web services envolve rede, ou mesmo a internet, é preciso que as requisições sejam criptografadas para evitar que os dados sejam obtidos por outros.

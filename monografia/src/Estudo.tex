@@ -64,4 +64,6 @@ Todos os scanners detectaram diversos tipos de vulnerabilidades em todas as apli
 
 O Arachni e o w3af não só detectaram a mesma quantia de vulnerabilidades, mas detectaram as mesmas três vulnerabilidades. Isso já era esperado, já que esses dois scanners possuem implementações parecidas para detecção desse tipo de vulnerabilidade.
 
-O WebCruiser detectou uma quantidade de vulnerabilidades maior, das quais apenas uma foi detectada também pelos outros scanners.
+Pode-se observar que o mínimo de tratamento de erros é necessário para enganar esses scanners. Aplicações que exibem uma mensagem ``amigável'' caso algum erro ocorra não foram detectados pelo Arachni e pelo w3af. Já o WebCruiser foi capaz de detectar algumas dessas aplicações.
+
+Apenas o w3af foi capaz de analisar os serviços que utilizavam SOAP, mas nenhuma das vulnerabilidades nesses serviços foi detectada.
