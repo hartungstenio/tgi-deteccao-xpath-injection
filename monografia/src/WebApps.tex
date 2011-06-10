@@ -1,18 +1,20 @@
 \chapter{Aplicações e Serviços Web}
-Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI (Tecnologia da Informação) \cite{Cloud:computerworld} \cite{Cloud:idgnow} \cite{Cloud:info:ml} \cite{Cloud:info:entrevista}.
+Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI (Tecnologia da Informação) \cite{Cloud:computerworld} \cite{Cloud:idgnow} \cite{Cloud:info:ml} \cite{Cloud:info:entrevista} \cite{Cloud:olhardigital}.
 
 Essa arquitetura permite que as aplicações fiquem armazenadas em centros de armazenamento de terceiros\cite{Silva-Fabio-Rodrigues:2010:CloudComputing}, e sejam acessadas das máquinas clientes, reduzindo assim os custos com compra e manutenção de servidores, dispositivos para armazenamento, backups, etc. O único requisito é que o cliente tenha um navegador de internet instalado.
 
-Funciona da seguinte forma: ao invés de instalar um editor de textos, uma planilha eletrônica, um editor apresentações, etc. na máquina, estes softwares funcionam como um serviço armazenado em um provedor. Todos os recursos de hardware necessários para executá-lo, o espaço para armazenamento de documentos, etc. são responsabilidade desse provedor. O usuário precisa apenas acessar o serviço através do navegador de internet e usá-lo. Aplicações com essa característica de serem acessadas pelo navegador são conhecidas como \emph{web application}.
+Funciona da seguinte forma: ao invés de instalar um editor de textos, uma planilha eletrônica, um editor apresentações, etc. na máquina, estes softwares funcionam como um serviço armazenado em um provedor. Todos os recursos de hardware necessários para executá-lo, o espaço para armazenamento de documentos, etc. são responsabilidade desse provedor. O usuário precisa apenas de um navegador de internet para acessá-lo. Essas aplicações que são executadas no navegador de internet são conhecidas como \emph{webapps} (\estrangeiro{web applications}, ou aplicações \estrangeiro{web}).
 
-No lado pessoal, sites como Twitter e Facebook vem ganhando muita popularidade, principalmente pelo fato de eles serem acessados através de aplicativos rodando nos mais variados dispositivos, como desktops, workstations, celulares, consoles de vídeo-game, etc. Assim eles podem ser utilizados não importando onde a pessoa esteja. Neste caso onde existe a troca de informações entre o servidor e os vários dispositivos interligados utiliza-se um conceito chamado \emph{web service}.
+Mas nem sempre uma \estrangeiro{webapp} é possível ou vantajoso. Se o serviço em questão precisa ser acessado de um \estrangeiro{smartphone}, onde a experiencia com o navegador é mais limitada, pelo tamanho da tela ser menor, o poder de processamento reduzido, etc., ou o usuário não possui uma conexão rápida o bastante para acessar o serviço, ou ainda o usuário prefere ter um aplicativo instalado para utilizar o serviço, utilizar a \estrangeiro{webapp} diretamente se tornaria um problema.
+
+Nesses casos, o provedor do serviço pode disponibilizar uma API (\estrangeiro{Application Programming Interface}, ou Interface de Programação de Aplicações), para que seja desenvolvido um aplicativo que utilize o serviço em questão. Essa API é chamada \emph{web service} (serviço \estrangeiro{web}) 
 
 Este capítulo vai dar uma breve introdução do que são essas duas tecnologias, como funcionam e quais suas vantagens e desvantagens.
 
 \section{Aplicações Web}
-Uma \emph{webapp} (\estrangeiro{Web Application}, ou Aplicação Web) é qualquer aplicação que utilize um navegador de internet como cliente\cite{About:WebApps}.
+Uma \emph{webapp} é qualquer aplicação que utilize um navegador de internet como cliente\cite{About:WebApps}.
 
-Apesar de o termo \estrangeiro{Cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras \emph{Webapps} (\estrangeiro{Web Applications}, ou Aplicações Web) surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory}.
+Apesar de o termo \estrangeiro{Cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras \emph{Webapps} surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory}.
 
 Webapps funcionam utilizando uma arquitetura \emph{cliente-servidor}. O cliente (navegador de internet) solicita um recurso do servidor, que responde com uma representação desse recurso em um formato que o navegador pode entender: o HTML (\estrangeiro{Hypertext Markup Language}, ou Linguagem de Marcação de Hipertexto).
 
@@ -47,7 +49,14 @@ O HTTP é o protocolo padrão para transferência de dados pela internet e está na 
 
 \figura{TemplateHTTP}{Formato de uma requisição HTTP}{7cm}
 
-\estrangeiro{Host}, \estrangeiro{Cookie} e \estrangeiro{From} são os cabeçalhos da requisição. Uma requisição pode ter qualquer quantidade de cabeçalhos, padronizados ou personalizados. Eles são utilizados para enviar meta-informações com cada requisição. Neste exemplo, \estrangeiro{Host} identifica o domínio que está sendo acessado, \estrangeiro{From} contém o endereço de e-mail do usuário que fez a requisição e \estrangeiro{Cookie} contém informações de autenticação em alguma aplicação.
+\estrangeiro{Host}, \estrangeiro{Cookie} e \estrangeiro{From} são os cabeçalhos da requisição. Uma requisição pode ter qualquer quantidade de cabeçalhos, padronizados ou personalizados. Eles são utilizados para enviar \emph{meta-informações} com cada requisição, ou seja, enviar informações adicionais sobre o recurso que está sendo transmitido. Exemplos de cabeçalhos comumente usados são:
+\begin{description}
+	\item[Host:] identifica o domínio que está sendo acessado;
+	\item[From:] contém o \estrangeiro{e-mail} do usuário que fez a requisição;
+	\item[Cookie:] contém informações de autenticação em alguma aplicação;
+	\item[Content-Type:] informa o tipo de dados em que o conteúdo da requisição está codificado;
+	\item[Content-Length:] informa o tamanho do conteúdo da requisição;
+\end{description}
 
 O \emph{método} utilizado na requisição indica o que o servidor deve fazer com o recurso transmitido. Dois métodos principais são utilizados em uma aplicação web: \emph{GET} e \emph{POST}.
 
@@ -55,9 +64,11 @@ O cliente utiliza o método \texttt{GET} quando deseja obter recursos do servidor
 
 \figura{HTTP-GET}{Requisição HTTP GET}{5cm}
 
-Já o método \texttt{POST} é utilizado quando o cliente deseja enviar informações para o servidor. Um uso comum dessa requisição na internet é para o preenchimento de formulários. A figura \ref{fig:HTTP-POST} mostra um exemplo de requisição \texttt{POST} que altera a instituição do usuário \texttt{chrishartung}.
+Já o método \texttt{POST} é utilizado quando o cliente deseja enviar informações para o servidor. Um uso comum dessa requisição na internet é para o preenchimento de formulários. A figura \ref{fig:HTTP-POST} mostra um exemplo de requisição \texttt{POST} que altera a instituição do usuário \texttt{chrishartung}. Observe que neste caso foi informado o tipo dos dados em que o conteúdo foi codificado (\emph{application/x-www-form-urlencoded}) e o tamanho da mensagem. 
 
-\figura{HTTP-POST}{Requisição HTTP POST}{10cm}
+\figura{HTTP-POST}{Requisição HTTP POST}{11cm}
+
+O tipo \texttt{application/x-www-form-urlencoded} é utilizado como padrão no HTML\cite{W3C:HTML4} para envio de formulários. Neste formato, apenas caracteres ASCII\footnote{O \estrangeiro{American Standard Code for Information Interchange} é uma codificação de caracteres baseado no alfabeto inglês. Consiste de 128 caracteres, sendo 94 visíveis, 33 caracteres de controle (caracteres que informam como o texto deve ser processado) e o caractere de espaço.} podem ser utilizados, então caracteres não-ASCII devem ser codificados no formato $\%HH$, onde \texttt{HH} são dois dígitos hexadecimais, e espaços são substituídos por $+$. Os campos são enviados como pares \texttt{nome=valor}, separados pelo caractere \texttt{\&}.
 
 \subsubsection{Linguagem \estrangeiro{server-side}}
 O servidor web sozinho só é capaz de enviar conteúdo estático para o cliente.
@@ -70,7 +81,7 @@ Exemplos comuns de linguagens rodando no servidor são o PHP, ASP, JSP, ColdFusio
 Aplicações web vem ganhando muita atenção tanto em ambientes corporativos como no uso pessoal. Isso porque oferecem algumas vantagens sobre as aplicações de \textit{desktop}\cite{AJAX-PHP-WebApps}:
 \begin{description*}
 	\item[Fácil distribuição:] Basta um navegador e uma conexão com a internet ou intranet. Não é necessário que o departamento de TI instale a aplicação em cada estação da empresa;
-	\item[Independente de plataforma:] O usuário final pode usar Windows, Mac, Linux, Solaris, iPhone, etc. como sistema operacional e qualquer navegador disponível\footnote{Se a aplicação foi construída utilizando os padrões corretamente}.
+	\item[Independente de plataforma:] O usuário final pode usar Windows, Mac, Linux, Solaris, iPhone, etc. como sistema operacional e qualquer navegador disponível\footnote{Se a aplicação foi construída utilizando os padrões da W3C corretamente}.
 	\item[Dados centralizados:] Não há dados salvos na máquina do usuário. Tudo está no servidor.
 \end{description*}
 
@@ -81,7 +92,7 @@ Alguns problemas também surgem ao utilizar essa arquitetura. Os principais deles
 \end{description*}
 
 \section{Serviços Web}
-Um \emph{web service} (serviço web) é um software que implementa diversas tecnologias para transferência e representação de dados que, quando combinadas, que permitem a comunicação entre os diversos dispositivos conectados em uma rede.
+Um \emph{web service} (serviço web) é um software que implementa diversas tecnologias para transferência e representação de dados que, quando combinadas, que permitem a comunicação entre os diversos dispositivos conectados em uma rede\cite{W3C:ws-arch}.
 
 Diferentemente das \estrangeiro{webapps} onde único cliente é o navegador, um \estrangeiro{web service} pode ter os mais variados tipos de clientes, como aplicativos próprios, aplicativos de terceiros, linha de comando, celulares e até mesmo \estrangeiro{webapps}.
 
