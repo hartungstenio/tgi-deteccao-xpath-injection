@@ -9,7 +9,7 @@ Tome como exemplo a \emph{PSN} (\estrangeiro{PlayStation Netowork}), a rede util
 
 O caso da PSN mostra que mesmo os maiores serviços existentes estão sujeitos a todo tipo de vulnerabilidade e nem sempre ferramentas tradicionais como \estrangeiro{firewalls} e criptografia são suficientes para protegê-las. Além disso, o objetivo dessas ferramentas tradicionais é proteger a rede. Elas não mitigam ataques a aplicações Web e, dessa forma, \estrangeiro{hackers} estão também com foco nessas aplicações, onde vulnerabilidades de segurança criadas, na maioria das vezes, por codificação não segura, representam maior risco\cite{dsn:2008:mapping_software_faults}.
 
-Um exemplo desse tipo de vulnerabilidade ocorreu no \emph{Twitter} em setembro de 2010. Apesar de os servidores do Twitter estarem devidamente protegidos, um erro no aplicação permitiu que código malicioso fosse executado na página, fazendo com que janelas \estrangeiro{pop-up} fossem abertas ao passar o \estrangeiro{mouse} sobre um \estrangeiro{link}.
+Um exemplo desse tipo de vulnerabilidade ocorreu no \emph{Twitter} em setembro de 2010\cite{info:Twitter}. Apesar de os servidores do Twitter estarem devidamente protegidos, um erro no aplicação permitiu que código malicioso fosse executado na página, fazendo com que janelas \estrangeiro{pop-up} fossem abertas ao passar o \estrangeiro{mouse} sobre um \estrangeiro{link}.
 
 \estrangeiro{Scanners} de vulnerabilidade são ferramentas que fazem a análise das aplicações \estrangeiro{web} de forma automática com o objetivo de detectar e reportar vulnerabilidades de segurança\cite{Tania:2010:Scanners}. Para utilizar um \estrangeiro{scanner} de vulnerabilidade, é essecial confiar nos resultados oferecidos por ele, portanto a eficácia na detecção das vulnerabilidades desse \estrangeiro{scanner} deve ser avaliada. Essa avaliação é feita a partir de dois aspectos: falta de cobertura (quando o \estrangeiro{scanner} deixa de detectar vulnerabilidades que realmente existem na aplicação) e falsos positivos (o \estrangeiro{scanner} detecta vulnerabilidades que não existem na aplicação). Falsos positivos implicam desperdício de tempo para correções que de fato não são necessárias.
 
@@ -17,8 +17,9 @@ O objetivo deste trabalho é analisar a eficácia de alguns desses \estrangeiro{sc
 
 Este trabalho está organizado da seguinte forma:
 \begin{description*}
-	\item[Seção 2:] introduz aplicações \estrangeiro{web} e serviços \estrangeiro{web}, as duas tecnologias que esses \estrangeiro{scanners} são capazes de analisar;
-	\item[Seção 3:] mostra conceitos de XML e XPath e descreve as vulnerabilidades do tipo \estrangeiro{XPath Injection};
-	\item[Seção 4:] apresenta o estudo realizado e os resultados obtidos;
-	\item[Seção 5:] conclusões e ideias para estudos futuros;
+	\item[Capítulo \ref{chap:WebApps}:] introduz aplicações \estrangeiro{web} e serviços \estrangeiro{web}, as duas tecnologias que esses \estrangeiro{scanners} são capazes de analisar;
+	\item[Capítulo \ref{chap:Vulnerabilidades}:] apresenta estatísticas sobre as principais vulnerabilidades exploradas em aplicações \estrangeiro{web} atualmente;
+	\item[Capítulo \ref{chap:XPath}:] mostra conceitos de XML e XPath e descreve as vulnerabilidades do tipo \estrangeiro{XPath Injection};
+	\item[Capítulo \ref{chap:Estudo}:] apresenta o estudo realizado e os resultados obtidos;
+	\item[Capítulo \ref{chap:Conclusao}:] conclusões e ideias para estudos futuros;
 \end{description*}
