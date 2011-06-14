@@ -1,4 +1,4 @@
-\chapter{Aplicações e Serviços Web}
+\chapter{Aplicações e Serviços Web} \label{chap:WebApps}
 Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI (Tecnologia da Informação) \cite{Cloud:computerworld} \cite{Cloud:idgnow} \cite{Cloud:info:ml} \cite{Cloud:info:entrevista} \cite{Cloud:olhardigital}.
 
 Essa arquitetura permite que as aplicações fiquem armazenadas em centros de armazenamento de terceiros\cite{Silva-Fabio-Rodrigues:2010:CloudComputing}, e sejam acessadas das máquinas clientes, reduzindo assim os custos com compra e manutenção de servidores, dispositivos para armazenamento, backups, etc. O único requisito é que o cliente tenha um navegador de internet instalado.
@@ -91,12 +91,12 @@ Alguns problemas também surgem ao utilizar essa arquitetura. Os principais deles
 	\item[Dependência do servidor:] Se o servidor cair, o sistema todo cai junto.
 \end{description*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Serviços Web}
 Um \emph{web service} (serviço web) é um software que implementa diversas tecnologias para transferência e representação de dados que, quando combinadas, que permitem a comunicação entre os diversos dispositivos conectados em uma rede\cite{W3C:ws-arch}.
 
 Diferentemente das \estrangeiro{webapps} onde único cliente é o navegador, um \estrangeiro{web service} pode ter os mais variados tipos de clientes, como aplicativos próprios, aplicativos de terceiros, linha de comando, celulares e até mesmo \estrangeiro{webapps}.
 
-\subsection{Funcionamento}
 Um \estrangeiro{web service} é um software que fica no servidor e que responde a requisições dos clientes.
 
 \figura{WebServiceLoja}{Exemplo de aplicação web utilizando web services}{10cm}
@@ -105,23 +105,103 @@ A figura \ref{fig:WebServiceLoja} como funciona uma aplicação web de cotação de 
 
 Antes de começar a implementação de um web service, é preciso definir as tecnologias que serão utilizadas para representar os dados e para transferi-los.
 
-\subsubsection{Representação dos dados}
+\subsection{Representação dos dados}
 A tecnologia para representação dos dados é o idioma que nosso web service fala. De nada adianta nosso professor falar latim se nossos alunos entendem apenas português. Da mesma forma, de nada adianta o servidor enviar os dados utilizando uma representação que os clientes não são capazes de interpretar.
 
-Não existe nenhuma norma que obrigue a utilizar determinada representação para desenvolvimento de um web service, mas o XML é a representação mais utilizada\cite{Costa-Guilherme:2009:SOA}. Mais detalhes sobre XML no próximo capítulo.
+Não existe nenhuma norma que obrigue a utilizar determinada representação para desenvolvimento de um \estrangeiro{web service}\footnote{A natureza do SOAP induz o serviço a utilizar XML, mas não é obrigatório usar SOAP para criação do serviço.}. Atualmente os formatos mais utilizados são o XML (\estrangeiro{Extensible Markup Language}, ou Linguagem de Marcação Extensível) e o JSON (\estrangeiro{JavaScript Object Notation}, ou Notação de Objeto JavaScript).
 
-\subsubsection{Transferência das informações}
+\subsubsection{XML}
+A XML é uma linguagem de marcação padronizada pela W3C\cite{W3C:XML}, que a define como um formato para representar informações estruturadas na forma de texto. Sua adoção se dá principalmente pelo fato de ter sido criada pensando em internet, em facilidade de uso, em ser independente de plataforma ou linguagem de programação e em ser legível para máquinas e humanos.
+
+\figura{XMLUsuarios}{Exemplo de documento XML}{7cm}
+
+A figura \ref{fig:XMLUsuarios} mostra um exemplo de documento XML. A primeira linha contém a declaração XML, que identifica a versão da especificação da XML sendo utilizada (1.0) e o conjunto de caracteres utilizado (UTF-8). Na segunda linha está o elemento raiz do documento (``usuarios''). Os documentos XML também podem ser representados em estrutura de árvore\cite{W3Schools:XML}, que tem esse elemento como raíz. As linhas seguintes definem elementos filhos da raiz, ou até mesmo filhos dos filhos da raiz. A última linha encerra o elemento raiz, encerrando o documento. A figura \ref{fig:XMLUsuariosArvore} mostra esse mesmo documento em formato de árvore.
+
+\figura{XMLUsuariosArvore}{Representação de documento XML em árvore}{7cm}
+
+Os documentos XML são formados por duas construções principais: as tags (marcadores) e seus atributos. Uma tag é um elemento entre os sinais de ``<'' e ``>'' e os atributos são pares nome/valor que ficam dentro da tag. No exemplo da Figura \ref{fig:XMLUsuarios}, ``usuarios'', ``usuario'', ``nome'' e ``nascimento'' são tags, enquanto ``login'' é um atributo da tag ``usuario''. A especificação do XML não define nenhuma tag ou atributo, cabendo ao desenvolvedor do sistema defini-los.
+
+\subsubsection{JSON}
+Apesar de o XML ser o formato mais utilizado para transferência de dados\cite{Costa-Guilherme:2009:SOA}, ele é um formato que possui muitas regras, o que o torna pesado.
+
+Pensando nisso o formato JSON foi criado e padronizado\cite{IETF:JSON}, com base na sintaxe para criação de objetos da linguagem JavaScript. A figura \ref{fig:JSONUsuarios} mostra como ficaria o documento XML da figura \ref{fig:XMLUsuarios} utilizando o formato JSON.
+
+\figura{JSONUsuarios}{Exemplo de objeto JSON}{5cm}
+
+O JSON é formado por um conjunto de pares nome/valor. O nome é uma \estrangeiro{string} (definido como uma sequenciao de caracteres entre aspas) e o valor pode ser qualquer um dos tipos de dados suportados:
+\begin{description*}
+	\item[string:] cadeias de caracteres entre aspas;
+	\item[números:] valores numéricos, com ou sem casas decimais;
+	\item[booleanos:] \estrangeiro{true} (verdadeiro) ou \estrangeiro{false} (falso);
+	\item[\estrangeiro{arrays}:] conjunto de valores delimitado por colchetes, como \texttt{[1, ''string``, [3,4], \{``nome'':``fulano''\}]};
+	\item[objetos:] conjunto de pares nome/valor;
+	\item[vazio:] nenhum valor, representado pela palavra \texttt{null};
+\end{description*}
+
+Estudos indicam que o formato JSON pode ser analisado até cem vezes mais rápido que o XML\cite{JSONxXML}.
+
+\subsection{Transferência das informações}
 Além de falarem o mesmo idioma, a forma como a informação é transmitida também deve ser compatível entre o cliente e o servidor.
 
 De nada adianta o cliente fazer requisições utilizando um protocolo que o servidor não entende, da mesma forma que de nada adianta o servidor responder às requisições de uma forma que o cliente não possa interpretar.
 
-Assim como nas aplicações web, o protocolo utilizado para transferência de dados em \estrangeiro{web services} é o HTTP.
+Atualmente existem duas formas para transferência de dados que tem sido difundidas: o \emph{SOAP} (\estrangeiro{Simple Object Access Protocol}, ou Protocolo Simples de Acesso a Objetos) e o \emph{REST} (\estrangeiro{Representational State Transfer}, ou Transferência de Estado Representacional).
+
+\subsubsection{SOAP}
+O SOAP é um protocolo para troca de informações por meio de mensagens XML sobre um protocolo de aplicação, normalmente o HTTP.  É um dos protocolos mais utilizados para criação de \estrangeiro{web services}, principalmente pelo fato de ser baseado em XML, o que o torna compatível com qualquer linguagem de programação, além de ser uma recomendação da W3C\cite{W3C:SOAP}.
+
+Uma comunicação utilizando SOAP funciona da seguinte forma: quando o cliente se conecta ao serviço, obtém um documento listando os métodos disponíveis, seus parâmetros e tipos de dados. Este documento é chamado \emph{WSDL} (\estrangeiro{Web Services Description Language}, ou Linguagem de Descrição de Serviços Web) , uma linguagem tambem baseada em XML. A descrição de uma mensagem para obter os dados de uma cidade (método \texttt{GetCidade}) é ilustrada na figura \ref{fig:WSDL-Request}. O documento que define sua resposta é ilustrado na figura \ref{fig:WSDL-Response}.
+
+\figura{WSDL-Request}{Documento WSDL para um serviço que obtém dados de uma cidade - Requisição}{6cm}
+
+\figura{WSDL-Response}{Documento WSDL para um serviço que obtém dados de uma cidade - Resposta}{7cm}
+
+Tendo este documento, o aplicativo cliente é capaz de fazer a requisição SOAP propriamente dita, enviando uma mensagem HTTP semelhante à da figura \ref{fig:SOAP}. Na linha 6 está a chamada ao método \texttt{GetCidade} e na linha 7 está sendo passado o parâmetro \texttt{Cidade}.
+
+\figura{SOAP}{Requisição SOAP}{9cm}
+
+\subsubsection{REST}
+O REST não é um padrão, mas um conceito. É um conjunto de \estrangeiro{constraints} (restrições) que, quando seguidas, tornam o serviço \estrangeiro{RESTful}\cite{REST}.
+
+Diferente do SOAP, que cria um novo protocolo sobre o HTTP para a transferência da mensagem, em um serviço \estrangeiro{RESTful} toda mensagem é transmitida diretamente no HTTP\footnote{O conceito foi desenvolvido sobre o protocolo HTTP, mas nada impede que seja utilizado outro protocolo, desde que as \estrangeiro{constraints} possam ser implantadas.}.
+
+O REST trabalha com a transferência de representações de recursos de um lado para o outro da aplicação, acessadas através de identificadores. Um recurso é um elemento conceitual da aplicação. Pode ser um usuário, uma cidade, um documento, pode estar armazenado em memória, em um banco de dados, em um documento XML. A representação é uma materialização desse conceito de uma forma que o aplicativo possa entender, como um documento XML ou JSON. A tabela \ref{tab:elementos-rest} mostra esses elementos e um exemplo deles em um serviço para controle de usuários.
+
+\begin{table}[h]
+ \centering
+ \begin{tabular}{lp{10cm}}
+ \toprule
+  \textbf{Elemento} & \textbf{Exemplo} \\
+  \midrule
+  Recurso & Usuário \\
+  \midrule
+  Identificador & URI (\estrangeiro{Uniform Resource Identifier}, ou Identificador Uniforme de Recursos) onde o recurso pode ser encontrado. \texttt{/usuarios/chrishartung} \\
+  \midrule
+  Representação & Documento JSON representando um usuário. \texttt{\{``usuario'':\{``login'':``chrishartung'', ``nome'':``Christian Hartung'', ``nascimento'':``1988-03-08''\}} \\
+  \bottomrule
+ \end{tabular}
+ 
+ \caption{Elementos de uma aplicação \estrangeiro{RESTful}}
+ \label{tab:elementos-rest}
+\end{table}
+
+As \estrangeiro{constraints} que devem ser respeitadas são\cite{REST}:
+\begin{description*}
+	\item[Cliente-servidor:] Deve haver uma clara separação entre as responsabilidades do cliente e do servidor. O servidor não deve se preocupar com como o recurso será exibido, e o cliente não deve se preocupar em como o recurso será armazenado. Isso permite que as duas partes fiquem mais simples e evoluam de forma independente.
+	\item[\estrangeiro{Steteless}:] O servidor não deve guardar nenhuma informação intermediária sobre o processamento. Toda essa informação fica no cliente, e é transmitida na requisição sempre que necessária.
+	\item[\estrangeiro{Cache}:] Deve haver uma marcação que indica se a resposta pode ser guardada pelo cliente para uso futuro ou não.
+	\item[Interface uniforme:] Ter uma interface uniforme permite que o sistema fique mais desacoplado e ajuda que cada componente evolua de forma independente. Neste ponto se estão as URI's.
+	\item[Multicamadas:] Um cliente nunca pode assumir que está conectado diretamente ao servidor. Podem existir máquinas intermediárias para aumentar a segurança e escalabilidade do serviço, como \estrangeiro{firewalls}, servidores \estrangeiro{proxy}, etc. Da mesma forma, o servidor não pode assumir que está conectado diretamente ao cliente.
+	\item[Código sob demanda:] Esta \estrangeiro{constraint} é opcional e diz que o cliente deve ser capaz de executar código enviado pelo servidor.
+\end{description*}
+
+O exemplo mais utilizado de serviço \estrangeiro{RESTful} é a \emph{rede mundial de computadores} (\estrangeiro{World Wide Web}): a internet\cite{REST}.
 
 \subsection{Vantagens e Desvantagens}
-Utilizando web services, é possível dividir o processamento que uma aplicação precisa realizar entre os clientes e o servidor, tornando os aplicativos mais leves entre ambas as partes.
+Utilizando \estrangeiro{web services}, é possível dividir o processamento que uma aplicação precisa realizar entre os clientes e o servidor, tornando os aplicativos nas duas partes mais leves.
 
-Por serem baseados em padrões abertos, a grande maioria das linguagens de programação possui suas API's para criação de web services, e estas são compatíveis entre si, portanto o cliente e o servidor podem ser escritos em linguagens diferentes.
+Por serem baseados em padrões abertos, a grande maioria das linguagens de programação possui suas API's para criação de \estrangeiro{web services}, e estas são compatíveis entre si, portanto o cliente e o servidor podem ser escritos em linguagens diferentes.
 
-Um problema dessas tecnologias é que o XML pode ser considerado um formato pesado para troca de informações, já que existe um conjunto de regras que devem ser seguidas, principalmente para garantir a compatibilidade.
+Quando utilizando SOAP, uma limitação é que os dados só podem ser transmitidos em XML, dando menor flexibilidade para a aplicação.
 
-Outra preocupação que se deve ter é com como os dados trafegarão. Como o uso de web services envolve rede, ou mesmo a internet, é preciso que as requisições sejam criptografadas para evitar que os dados sejam obtidos por outros.
+Outra preocupação que se deve ter é com como os dados trafegarão. Como o uso de \estrangeiro{web services} envolve rede, ou mesmo a internet, é preciso que as requisições sejam criptografadas para evitar que os dados sejam obtidos por outros.
