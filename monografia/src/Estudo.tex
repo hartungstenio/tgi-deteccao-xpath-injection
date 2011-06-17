@@ -1,30 +1,61 @@
 \chapter{Estudo realizado} \label{chap:Estudo}
-Para realização dos experimentos, foi desenvolvida uma aplicação web contendo diversas vulnerabilidades do tipo \estrangeiro{XPath Injection}. Também foram utilizadas aplicações listadas no \emph{Vulnerable Sites Database}, além de vulnerabilidades encontradas em estudos de outras pessoas\cite{nuno}. No total, foram avaliadas trinta e duas vulnerabilidades, sendo dez em \estrangeiro{web services} e as demais aplicações \estrangeiro{web}.
+Os experimentos foram realizados sobre um conjunto de aplicações \estrangeiro{web} e \estrangeiro{web services}, cada qual contendo uma ou várias vulnerabilidades do tipo \estrangeiro{XPath Injection}, totalizando 32 vulnerabilidades. Algumas dessas aplicações eram proprietárias, e muitos detalhes sobre elas não podem ser dados. As aplicações analisadas envolviam:
+\begin{itemize*}
+	\item Uma aplicação \estrangeiro{web} que era o contato entre uma empresa e seus representantes. Os representantes da empresa incluem os pedidos de venda nessa aplicação e conseguem visualizar relatórios, como histórico de vendas e comissões;
+	\item Uma aplicação \estrangeiro{web} para registro de atendimentos utilizado por uma equipe de suporte;
+	\item Um \estrangeiro{web service} para cálculo de impostos;
+	\item Uma base de \estrangeiro{web services} para testes cedida pela Universidade de Coimbra;
+\end{itemize*}
 
 Este capítulo descreve como foi a experiência, os \estrangeiro{scanners} utilizados e os resultados obtidos.
 
 \section{Scanners utilizados}
-Nesse estudo foram utilizados três scanners de vulnerabilidade: Arachni, w3af e webCruiser. As seções a seguir descrevem brevemente esses scanners.
+Antes de começar a avaliação das aplicações, houve uma fase de seleção dos \estrangeiro{scanners} que seriam utilizados. Quinze \estrangeiro{scanners} foram avaliados nesse processo, sendo quatro comerciais e os demais gratuitos ou projetos de código aberto. A maioria desses \estrangeiro{scanners} veio de uma lista mantida pela WASC\cite{WASC:ScannerList} e os demais foram encontrados em avaliações, fóruns, etc. Os \estrangeiro{scanners} utilizados nesse processo de pré avaliação (e seus desenvolvedores) foram:
+\begin{itemize*}
+	\item Acunetix WVS (Acunetix, comercial);
+	\item Andiparos (Axel Neumann);
+	\item Arachni (Tasos Laskos);
+	\item Grabber (Romain Gaucher);
+	\item Grendel-Scan (David Byrne e Eric Duprey);
+	\item NeXpose (Rapid7, comercial);
+	\item Paros (Chinotec);
+	\item Powerfuzzer (Marcin Kozlowski);
+	\item Skipfish (Michal Zalewski);
+	\item w3af (Andres Riancho);
+	\item Wapiti (Nicolas Surribas);
+	\item WebCruiser (Janus Security, comercial);
+	\item Websecurify (GNUCITIZEN, comercial);
+	\item WATOBO (siberas)
+	\item Zed Attack Proxy (OWASP);
+\end{itemize*}
+
+A maioria desses \estrangeiro{scanners} foram eliminados por:
+\begin{enumerate*}
+	\item Dificuldades na instalação. Os instaladores de alguns desses \estrangeiro{scanners} não funcionaram.
+	\item Não possuírem documentação. Após instalação do \estrangeiro{scanners}, não havia nenhum manual que ajudasse a usá-lo e a interface não era nada intuitiva.
+	\item Limitações. A versão de avaliação de alguns \estrangeiro{scanners} comerciais possuíam limitação de funcionalidades. Havia um limite de aplicações \estrangeiro{web} que poderiam ser verificadas ou a quantia de vulnerabilidades suportadas era limitada.
+\end{enumerate*}
+
+Após essa pré avaliação, \estrangeiro{scanners} de vulnerabilidade foram selecionados: Arachni, w3af e webCruiser. As seções a seguir descrevem esses scanners.
 
 \subsection{Arachni}
-Arachni é um framework para auditoria de aplicações web capaz de detectar grande parte das vulnerabilidades conhecidas. Ele suporta extensões, ou seja, módulos para detecção de novas vulnerabilidades podem ser desenvolvidos e acoplados ao scanner principal\cite{site:arachni}. É um projeto de código aberto e bem documentado, o que facilita seu uso e integração.
+Arachni é um \estrangeiro{framework} (um conjunto de rotinas) para auditoria de aplicações web capaz de detectar grande parte das vulnerabilidades conhecidas. Ele suporta extensões, ou seja, módulos para detecção de novas vulnerabilidades podem ser desenvolvidos e acoplados ao scanner principal\cite{site:arachni}. É um projeto de código aberto e bem documentado, o que facilita seu uso e integração.
 
 Três interfaces principais estão disponíveis: linha de comando, interface web e XMLRPC, permitindo que outras aplicações interajam com o scanner.
 
-Foi utilizada a versão 0.2.2.2 para realização dos testes.
-
+Para realização dos testes foi utilizada a versão 0.2.2.2 com a interface de linha de comando.
 
 \subsection{w3af}
-O w3af (\estrangeiro{Web Application Attack and Audit Framework} também é um \estrangeiro{framework} para exploração de vulnerabilidades em aplicações \estrangeiro{web} \cite{site:w3af}. Ele é dividido em duas partes: o núcleo, responsável por coordenar o processo de exploração da aplicação, e os \estrangeiro{plugins}, que procuram as vulnerabilidades. Mais de 100 plugins estão disponíveis\cite{site:w3af:plugins}, capazes de encontrar a maioria dos tipos de vulnerabilidades conhecidos. Dentre os scanners avaliados, foi o único capaz de analisar \estrangeiro{web services} SOAP.
+O w3af (\estrangeiro{Web Application Attack and Audit Framework} também é um \estrangeiro{framework} para exploração de vulnerabilidades em aplicações \estrangeiro{web} \cite{site:w3af}. Ele é dividido em duas partes: o núcleo, responsável por coordenar o processo de exploração da aplicação, e os \estrangeiro{plugins}, que procuram as vulnerabilidades, além de oferecer opções extras para o núcleo. Mais de 100 plugins estão disponíveis\cite{site:w3af:plugins}, capazes de encontrar a maioria dos tipos de vulnerabilidades conhecidos. Dentre os scanners avaliados, foi o único capaz de analisar os documentos WSDL e fazer uma requisição SOAP.
 
 É um projeto de código aberto e desde 2010 está sendo desenvolvido em parceria com a Rapid7\cite{w3af:rapid7}, um dos maiores desenvolvedores de soluções para detecção de vulnerabilidades em aplicações web. Com a parceria, a Rapid7 disponibiliza um time para trabalhar no w3af em troca de utilizar parte da tecnologia em seus próprios softwares.
 
 A versão utilizada para os testes foi a 1.1 (r4300 - r4331\footnote{Como esta é a versão em desenvolvimento, ocorrem atualizações diárias}), utilizando a interface gráfica.
 
 \subsection{WebCruiser - Web Vulnerability Scanner}
-\estrangeiro{WebCruiser - Web Vulnerability Scanner} é um \estrangeiro{scanner} de vulnerabilidade e um conjunto de ferramentas de seguranção para explorar e proteger aplicações \estrangeiro{web}\cite{site:webcruiser}.
+\estrangeiro{WebCruiser - Web Vulnerability Scanner} é um \estrangeiro{scanner} de vulnerabilidade e um conjunto de ferramentas de segurança para explorar e proteger aplicações \estrangeiro{web}\cite{site:webcruiser}.
 
-O \emph{WebCruiser} é o único scanner comercial dentre os avaliados. A versão utilizada foi a 2.5.0.0.
+O \emph{WebCruiser} é o único scanner comercial dentre os avaliados. Foi utilizada uma edição Trial da versão 2.5.0.0. Esta versão têm um limite de 30 dias de uso, mas nenhuma limitação quanto aos recursos.
 
 \section{Funcionamento dos scanners}
 A detecção de \estrangeiro{XPath Injection} no Arachni e no w3af funcionam de forma parecida: ele tentam forçar uma expressão \estrangeiro{XPath} inválida e procuram por mensagens de erro que essas expressões possam disparar.
@@ -42,19 +73,16 @@ O WebCruiser utilizou um \estrangeiro{approach} diferente para detecção, injetan
 \figura{XPathWC}{Exemplo de expressão XPath gerada com ataque do WebCruiser}{12cm}
 
 \section{Testes realizados}
-Como dito anteriormente, os testes foram realizados utilizando uma base de serviços que continha 32 vulnerabilidades do tipo \estrangeiro{XPath Injection}. Cada teste envolveu três passos: análise automática da aplicação com os \estrangeiro{scanners}, análise dos resultados e conferência dos resultados. Cada um desses passos é descrito nas sessões seguintes.
+Como dito anteriormente, os testes foram realizados utilizando uma base de serviços que continha 32 vulnerabilidades do tipo \estrangeiro{XPath Injection}, comprovadas através da análise do código fonte da aplicação ou através de testes manuais. Cada teste com \estrangeiro{scanner} envolveu dois passos: análise da aplicação com os \estrangeiro{scanners} e análise dos resultados. Esses passos são descritos nas seções seguintes.
 
-\subsection{Análise automática da aplicação}
+\subsection{Análise da aplicação}
 A primeira atividade realizada era varrer a aplicação com todos os \estrangeiro{scanners} de vulnerabilidade selecionados.
 
 Esta etapa envolvia configuração individual de cada \estrangeiro{scanner} para otimização da varredura. Para utilização do \estrangeiro{WebCruiser}, nenhuma configuração foi necessária, bastando informar a URL que seria analisada. O \estrangeiro{Arachni} foi configurado para utilizar apenas o módulo de detecção de \estrangeiro{XPath Injection}, passando na linha de comando a opção \texttt{--mods=xpath}. O w3af também foi configurado para utilizar apenas o módulo de auditoria de \estrangeiro{XPath Injection}, mas os módulos \estrangeiro{grep}, responsáveis por realizar buscas na aplicação na página retornada também foram utilizados, permitindo que documentos WSDL fossem analisados.
 
 Nesta fase já foi possível analisar o tempo que cada \estrangeiro{scanner} levou para analisar uma aplicação. Para analisar uma aplicação com as configurações selecionadas, o w3af levou, em média, 26 segundos. Esse foi aproximadamente o tempo que o WebCruiser levou para analisar a aplicação buscando todas as vulnerabilidades que ele conhece. A análise de uma aplicação com o Arachni levou aproximadamente 3 minutos, dos quais 2 minutos foram utilizados apenas para inicializar o \estrangeiro{framework} e carregar os módulos utilizados.
 
-\subsection{Análise dos resultados}
-Ao término da execução, cada \estrangeiro{scanner} gerou um relatório contendo todas as vulnerabilidades detectadas na varredura.
-
-Esta etapa envolve analisar esses relatórios, buscando as vulnerabilidades do tipo \estrangeiro{XPath Injection} listadas. O relatório gerado pelo WebCruiser é mais direto, mostrando o que foi injetado, onde e a vulnerabilidade encontrada. Um exemplo de relatório do WebCruiser pode ser visto na figura \ref{fig:Rpt-WebCruiser}.
+Ao término da execução, cada \estrangeiro{scanner} gerou um relatório contendo todas as vulnerabilidades detectadas na varredura. Esses relatórios foram analisados, buscando as vulnerabilidades do tipo \estrangeiro{XPath Injection} listadas. O relatório gerado pelo WebCruiser é mais direto, mostrando o que foi injetado, onde e a vulnerabilidade encontrada. Um exemplo de relatório do WebCruiser pode ser visto na figura \ref{fig:Rpt-WebCruiser}.
 
 \figura{Rpt-WebCruiser}{Relatório de vulnerabilidades - WebCruiser}{13cm}
 
@@ -64,29 +92,29 @@ O w3af gera um relatório mais técnico, mostrando as mesmas informações que o Web
 Já o relatório gerado pelo Arachni apresenta um nível bem menos técnico, como pode ser visto na figura \ref{fig:Rpt-Arachni}. Além da localização da vulnerabilidade, é exibida uma descrição sobre ela, \estrangeiro{links} com referências, os erros que foram encontrados ao realizar a injeção de código e uma classificação para este tipo de vulnerabilidade.
 \figura{Rpt-Arachni}{Relatório de vulnerabilidades - Arachni}{10cm}
 
-\subsection{Conferência dos resultados}
+\subsection{Análise dos resultados}
 Nesta etapa final da análise, cada resultado reportado pelos \estrangeiro{scanners} foi testado manualmente. Duas técnicas de teste puderam ser feitos:
 \begin{description*}
-	\item[Teste de Caixa-branca:] teste realizado de uma perspectiva interna do sistema, analisando o código fonte da aplicação. Este tipo de teste foi realizado na aplicação desenvolvida para este trabalho e em alguns serviços com o fonte disponível. Nestes serviços foi feita uma busca de todos os lugares onde expressões \estrangeiro{XPath} eram construídas e onde arquivos XML eram carregados.
-	\item[Teste de caixa-preta:] teste realizado de uma perspectiva externa do sistema, analisando os dados de entrada e saída. Este teste foi realizado inserindo expressões \estrangeiro{XPath} manualmente nas aplicações e verificando os resultados obtidos com essas expressões.
+	\item[Teste de caixa-branca:] teste realizado de uma perspectiva interna do sistema, analisando o código fonte da aplicação. Este tipo de teste foi realizado na aplicação desenvolvida para este trabalho e em alguns serviços com o fonte disponível. Nestes serviços foi feita uma busca de todos os lugares onde expressões \estrangeiro{XPath} eram construídas e onde arquivos XML eram carregados. Pontos de parada (\estrangeiro{breakpoints}) foram inseridos nesses lugares para análise da expressão XPath que estava sendo formada.
+	\item[Teste de caixa-preta:] teste realizado de uma perspectiva externa do sistema, analisando os dados de entrada e saída. Este teste foi realizado inserindo expressões \estrangeiro{XPath} manualmente nas aplicações e verificando os resultados obtidos com essas expressões. A principal expressão XPath utilizada para esse tipo de teste foi ``\texttt{' or '1' = '1}'', para tentar forçar a expressão sempre ser avaliada como verdadeira. No caso de dados numéricos, a expressão ``\texttt{0 or 1=1}'' foi utilizada. Também foram feitos testes com uma expressão XPath inválida, como o Arachni e o w3af fazem.
 \end{description*}
 
 Esta análise foi realizada para verificar se nenhum \estrangeiro{scanner} informou vulnerabilidades que não existem (falso-positivo).
 
 \section{Resultados}
-Todos os scanners detectaram diversos tipos de vulnerabilidades em todas as aplicações avaliadas, mas poucas das vulnerabilidades \estrangeiro{XPath injection} foram encontradas, como pode ser observado na tabela \ref{tab:vulnerabilidades}. Nenhum falso-positivo foi informado.
+Todos os scanners detectaram diversos tipos de vulnerabilidades em todas as aplicações avaliadas, mas poucas das vulnerabilidades \estrangeiro{XPath injection} foram encontradas, como pode ser observado na tabela \ref{tab:vulnerabilidades}.
 
 \begin{table}[h]
  \centering
- \begin{tabular}{lr}
+ \begin{tabular}{lrrr}
  \toprule
-  \textbf{\estrangeiro{Scanner}} & \textbf{Quantidade} \\
+  \textbf{\estrangeiro{Scanner}} & \textbf{Vulnerabilidades Encontradas} & \textbf{Falta de Cobertura} & \textbf{Falsos-positivo} \\
   \midrule
-  Arachni & 3 \\
+  Arachni & 3 & 29 & 0 \\
   \midrule
-  w3af & 3 \\
+  w3af & 3 & 29 & 0 \\
   \midrule
-  WebCruiser & 5 \\
+  WebCruiser & 5 & 27 & 0 \\
   \bottomrule
  \end{tabular}
  
@@ -94,6 +122,8 @@ Todos os scanners detectaram diversos tipos de vulnerabilidades em todas as apli
  \label{tab:vulnerabilidades}
 \end{table}
 
-O Arachni e o w3af não só detectaram a mesma quantia de vulnerabilidades, mas detectaram as mesmas vulnerabilidades. Isso já era esperado, já que esses dois \estrangeiro{scanners} possuem implementações parecidas para detecção desse tipo de vulnerabilidade. Pode-se observar que o mínimo de tratamento de erros é necessário para enganar esses \estrangeiro{scanners}. Aplicações que exibem uma mensagem ``amigável'' caso algum erro ocorra não foram detectados pelo Arachni e pelo w3af. Já o WebCruiser foi capaz de detectar algumas dessas aplicações.
+Nenhum falso-positivo foi informado, porém pode-se observar que existem muitos casos de falta de cobertura.
+
+O Arachni e o w3af não só detectaram a mesma quantia de vulnerabilidades, mas detectaram as mesmas vulnerabilidades. Isso já era esperado, já que esses dois \estrangeiro{scanners} possuem implementações parecidas para detecção desse tipo de vulnerabilidade. Pode-se observar que o mínimo de tratamento de erros é necessário para enganar esses \estrangeiro{scanners}. Se uma exceção dizendo que ocorreu um erro na expressão XPath não for disparada, esses \estrangeiro{scanners} já não conseguem detectar a vulnerabilidade. O WebCruiser foi capaz de detectar algumas dessas aplicações com tratamento de erros, o que mostra que ele realmente analisa até os cabeçalhos da resposta HTTP em busca de \estrangeiro{Cookies} ou outras informações relevantes. Mas na maioria dos casos onde não ouve nenhuma alteração nos cabeçalhos HTTP ou nenhum erro relacionado a XPath foi disparado, mesmo o WebCruiser falhou na análise.
 
 Apenas o w3af foi capaz de analisar os serviços que utilizavam SOAP, mas nenhuma das vulnerabilidades nesses serviços foi detectada.

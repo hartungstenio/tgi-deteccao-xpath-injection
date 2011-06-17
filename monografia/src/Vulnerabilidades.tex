@@ -1,30 +1,32 @@
 \chapter{Vulnerabilidades em Aplicações Web} \label{chap:Vulnerabilidades}
 Já passou o tempo quando um \estrangeiro{firewall} era suficiente para proteger os dados de uma aplicação \estrangeiro{web}. Algum tempo atrás o foco dos \estrangeiro{hackers} era encontrar uma brecha no servidor e tentar explorá-la. Essa brecha podia ser uma porta que foi deixada aberta, uma senha que não era segura o bastante, etc.
 
-Hoje, além dessas brechas no servidor hospedando a aplicação, a própria aplicação tem sido atacada, muitas vezes com sucesso. Afinal, a aplicação já consulta os dados que esses \estrangeiro{hackers} estão tentando obter.
+Hoje, além dessas brechas no servidor hospedando a aplicação, a própria aplicação tem sido atacada, muitas vezes com sucesso. Afinal, a aplicação já consulta tem acesso aos dados que esses \estrangeiro{hackers} estão tentando obter.
 
 Este capítulo vai mostrar as formas mais comumente utilizadas para realizar ataques à aplicações \estrangeiro{web}, bem como estatísticas sobre ataques realizados.
 
 \section{Estado atual da segurança de aplicações \estrangeiro{web}}
-Atacar uma aplicação \estrangeiro{web} pode ser tão prejudicial quanto atacar o servidor diretamente. Se uma vulnerabilidade for encontrada e explorada, todos os dados da empresa podem estar comprometidos. A figura \ref{fig:Explorar-Vuln} mostra como funciona o ataque (caminho vermelho) a uma aplicação \estrangeiro{web}. Os \emph{Thread Agents} encontraram diversas vulnerabilidades (\estrangeiro{Weakness}) na aplicação. Essas vulnerabilidades foram exploradas e foi encontrado um caminho para dentro da empresa.
+Atacar uma aplicação \estrangeiro{web} pode ser tão prejudicial quanto atacar o servidor diretamente. Se uma vulnerabilidade for encontrada e explorada, todos os dados da empresa podem estar comprometidos. A figura \ref{fig:Explorar-Vuln}, extraída da edição 2010 do OWASP (\estrangeiro{Open Web Application Security Project}) Top 10\cite{OWASP:Top-10-2010}, mostra como funciona o ataque (caminho vermelho) a uma aplicação \estrangeiro{web}. Os \emph{Thread Agents} encontraram diversas vulnerabilidades (\estrangeiro{Weakness}) na aplicação. Essas vulnerabilidades foram exploradas e foi encontrado um caminho para dentro da empresa.
 
 \figura{Explorar-Vuln}{Resultado da exploração de uma vulnerabilidade}{12cm}
 
-Um estudo anual realizado pelo The Web Application Security Consortium\cite{WASC:Statistics} mostra que 13\% das \estrangeiro{webapps} avaliadas possuem vulnerabilidades que podem ser exploradas de forma totalmente automática. 49\% dessas aplicações possuem vulnerabilidades de alto risco.
+Um estudo anual realizado pelo WASC (\estrangeiro{The Web Application Security Consortium})\cite{WASC:Statistics} mostra que 13\% das aplicações \estrangeiro{web} avaliadas possuem vulnerabilidades que podem ser exploradas de forma totalmente automática. 49\% dessas aplicações possuem vulnerabilidades de alto risco.
 
-A probabilidade de encontrar uma dessas vulnerabilidades utilizando apenas \estrangeiro{scanners} é de 49\%. Se uma análise mais aprofundada for realizada, essa probabilidade pode subir para 96\%. O gráfico da figura \ref{fig:Graph-Prob-Vuln} mostra a probabilidade de encontrar vulnerabilidades utilizando várias formas de detecção. Pode-se observar que é mais provavel encontrar uma vulnerabilidade que afeta o servidor.
+A probabilidade de encontrar uma dessas vulnerabilidades utilizando apenas \estrangeiro{scanners} é de 49\%. Se uma análise mais aprofundada for realizada, essa probabilidade pode subir para 96\%. O gráfico da figura \ref{fig:Graph-Prob-Vuln2} mostra a probabilidade de encontrar vulnerabilidades utilizando várias formas de detecção. Pode-se observar que é mais provavel encontrar uma vulnerabilidade que afeta o servidor.
 
-\figura{Graph-Prob-Vuln}{Probabilidade de uma vulnerabilidade ser detectada}{10cm}
+\figura{Graph-Prob-Vuln2}{Probabilidade de uma vulnerabilidade ser detectada}{10cm}
+
+Na figura \ref{fig:Graph-Prob-Vuln2} pode-se observar que, utilizando os dados do estudo da WASC, a probabilidade de encontrar uma vulnerabilidade no lado cliente da aplicação utilizando \estrangeiro{scanners} de vulnerabilidade é de 63\%, enquanto que no lado servidor essa probabilidade é de 85\%. Realizando testes manuais, sem acesso ao código fonte da aplicação, essa probabilidade sobe para 71\% no lado cliente, e cai para 77\% do lado servidor. Se os testes forem realizados com acesso ao código fonte, e essas probabilidades sobem para 78\% no cliente e 97\% no servidor.
 
 \section{Principais vulnerabilidades}
-Segundo o \estrangeiro{OWASP Top 10}'\cite{OWASP:Top-10-2010}, as duas vulnerabilidades mais encontradas em aplicações \estrangeiro{web} são injeção de código e \estrangeiro{cross-site scripting}.
+Segundo o \estrangeiro{OWASP Top 10}'\cite{OWASP:Top-10-2010}, as duas vulnerabilidades mais perigosas em aplicações \estrangeiro{web} são injeção de código e \estrangeiro{cross-site scripting}.
 
 \subsection{Injeção de código}
 Injeção de código (\estrangeiro{Code Injection}) ocorre quando dados sem validação afetam o funcionamento normal da aplicação. 
 
 Para explorar esse tipo de vulnerabilidade, dois objetivos devem ser atingidos\cite{SecuriFly}:
 \begin{description*}
-	\item[Injetar dados maliciosos na aplicação] Isso pode ser feito utilizando um formulário para entrada dos dados (uma \estrangeiro{webapp}), colocando os dados maliciosos na URL (um serviço \estrangeiro{RESTful}), manipulação dos cabeçalhos da requisição, etc.
+	\item[Injetar dados maliciosos na aplicação] Isso pode ser feito utilizando um formulário para entrada dos dados (em uma aplicação \estrangeiro{web}), colocando os dados maliciosos na URL (um serviço \estrangeiro{RESTful}), manipulação dos cabeçalhos da requisição, etc.
 	\item[Manipular a aplicação com esses dados]
 \end{description*}
 
@@ -36,6 +38,3 @@ Falha que permite que código de outro site seja executado dentro da aplicação. I
 Esta falha pode ocorrer quando dados que o usuário digitou são utilizados para desenhar a página. Se o usuário inserir alguma \estrangeiro{tag} HTML ou algum script, ele será executado na página\cite{SecuriFly}.
 
 Um exemplo dessa vulnerabilidade foi o que ocorreu com o Twitter em 2010\cite{info:Twitter}.
-
-
-

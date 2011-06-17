@@ -1,62 +1,52 @@
 \chapter{Aplicações e Serviços Web} \label{chap:WebApps}
-Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI (Tecnologia da Informação) \cite{Cloud:computerworld} \cite{Cloud:idgnow} \cite{Cloud:info:ml} \cite{Cloud:info:entrevista} \cite{Cloud:olhardigital}.
+Nos últimos anos, muito se tem falado sobre as vantagens de se utilizar a chamada \emph{cloud computing} (computação em nuvem) como arquitetura de TI (Tecnologia da Informação) \cite{Cloud:computerworld} \cite{Cloud:idgnow} \cite{Cloud:info:ml} \cite{Cloud:info:entrevista} \cite{Cloud:olhardigital}. Essa arquitetura permite que as aplicações sejam armazenadas em centros de armazenamento de terceiros\cite{Silva-Fabio-Rodrigues:2010:CloudComputing} e utilizadas por meio de máquinas clientes, reduzindo, assim, os custos com aquisição e manutenção de servidores, dispositivos para armazenamento, \estrangeiro{backups}, etc. O único requisito é que o cliente tenha um navegador de internet instalado.
 
-Essa arquitetura permite que as aplicações fiquem armazenadas em centros de armazenamento de terceiros\cite{Silva-Fabio-Rodrigues:2010:CloudComputing}, e sejam acessadas das máquinas clientes, reduzindo assim os custos com compra e manutenção de servidores, dispositivos para armazenamento, backups, etc. O único requisito é que o cliente tenha um navegador de internet instalado.
+A vantagem da utilização da computação em nuvem está no fato de o usuário, ao invés de instalar, por exemplo, um editor de textos, uma planilha eletrônica ou um editor apresentações em seu computador, poder utilizar esses softwares como um serviço armazenado em um provedor. Todos os recursos de hardware necessários para executar esses softwares, o espaço para armazenamento de documentos, e outros recursos são responsabilidade desse provedor. O usuário precisa apenas utilizar o serviço por meio do navegador de internet. Aplicações com essa característica de serem acessadas pelo navegador são conhecidas como \emph{aplicações web}.
 
-Funciona da seguinte forma: ao invés de instalar um editor de textos, uma planilha eletrônica, um editor apresentações, etc. na máquina, estes softwares funcionam como um serviço armazenado em um provedor. Todos os recursos de hardware necessários para executá-lo, o espaço para armazenamento de documentos, etc. são responsabilidade desse provedor. O usuário precisa apenas de um navegador de internet para acessá-lo. Essas aplicações que são executadas no navegador de internet são conhecidas como \emph{webapps} (\estrangeiro{web applications}, ou aplicações \estrangeiro{web}).
+Mas nem sempre uma aplicação \estrangeiro{web} é possível ou vantajoso. Se o serviço em questão precisa ser acessado de um \estrangeiro{smartphone}, onde a experiencia com o navegador é mais limitada, pelo tamanho da tela ser menor, o poder de processamento reduzido, etc., ou o usuário não possui uma conexão rápida o bastante para acessar o serviço, ou ainda o usuário prefere ter um aplicativo instalado para utilizar o serviço, utilizar a aplicação \estrangeiro{web} diretamente se tornaria um problema.
 
-Mas nem sempre uma \estrangeiro{webapp} é possível ou vantajoso. Se o serviço em questão precisa ser acessado de um \estrangeiro{smartphone}, onde a experiencia com o navegador é mais limitada, pelo tamanho da tela ser menor, o poder de processamento reduzido, etc., ou o usuário não possui uma conexão rápida o bastante para acessar o serviço, ou ainda o usuário prefere ter um aplicativo instalado para utilizar o serviço, utilizar a \estrangeiro{webapp} diretamente se tornaria um problema.
+Nesses casos, o provedor do serviço pode disponibilizar uma API (\estrangeiro{Application Programming Interface}, ou Interface de Programação de Aplicações), para que seja desenvolvido um aplicativo que utilize o serviço em questão. Essa API é chamada \emph{web service} (serviço \estrangeiro{web}).
 
-Nesses casos, o provedor do serviço pode disponibilizar uma API (\estrangeiro{Application Programming Interface}, ou Interface de Programação de Aplicações), para que seja desenvolvido um aplicativo que utilize o serviço em questão. Essa API é chamada \emph{web service} (serviço \estrangeiro{web}) 
+As seções seguintes apresentam uma breve introdução sobre essas duas tecnologias (aplicações \estrangeiro{web} e \estrangeiro{web services}): como funcionam, suas vantagens e desvantagens.
 
-Este capítulo vai dar uma breve introdução do que são essas duas tecnologias, como funcionam e quais suas vantagens e desvantagens.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Aplicações \estrangeiro{web}}
+Uma aplicação \estrangeiro{web} é qualquer aplicação que utilize um navegador de internet como cliente\cite{About:WebApps}.
 
-\section{Aplicações Web}
-Uma \emph{webapp} é qualquer aplicação que utilize um navegador de internet como cliente\cite{About:WebApps}.
+Apesar de o termo \estrangeiro{cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras aplicações \estrangeiro{web} surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory} 
 
-Apesar de o termo \estrangeiro{Cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras \emph{Webapps} surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory}.
+Aplicações \estrangeiro{web} funcionam utilizando uma arquitetura cliente-servidor. Nessa arquitetura, o cliente (navegador de internet) solicita um recurso do servidor. O servidor, por sua vez, responde com uma representação do recurso solicitado em um formato que o navegador pode entender: a HTML (\estrangeiro{Hypertext Markup Language}),  Linguagem de Marcação de Hipertexto. 
 
-Webapps funcionam utilizando uma arquitetura \emph{cliente-servidor}. O cliente (navegador de internet) solicita um recurso do servidor, que responde com uma representação desse recurso em um formato que o navegador pode entender: o HTML (\estrangeiro{Hypertext Markup Language}, ou Linguagem de Marcação de Hipertexto).
+A HTML sozinha é uma linguagem limitada\cite{About:InternetHistory}. Tudo que ela faz é dizer ao navegador como interpretar o conteúdo da página e então, apenas páginas estáticas podem ser construídas com ela. Devido a essa limitação da HTML, as primeiras aplicações \estrangeiro{web} não passavam de páginas exibidas em determinada sequência, baseadas em dados de entrada do usuário. Com o tempo, novas tecnologias surgiram para permitir que mais pudesse ser feito com a HTML. A principal delas surgiu em 1995: as linguagens \estrangeiro{client-side}.
 
-O HTML sozinho é uma linguagem limitada\cite{About:InternetHistory}. Tudo que ele faz é dizer ao navegador como interpretar o conteúdo da página, então apenas páginas estáticas podem ser construídas com ele.
+Linguagens \estrangeiro{client-side} são linguagens de programação que são executadas no lado cliente da aplicação, ou seja, no navegador de internet. Elas permitiram que alguma lógica fosse adicionada às páginas HTML, tornando as aplicações Web mais interativas. Atualmente a principal linguagem \estrangeiro{client-side} é o JavaScript, já que é a linguagem de script padrão do HTML5\footnote{O HTML5 é a versão do HTML em desenvolvimento}\cite{whatwg:HTML}.
 
-Devido a essa limitação do HTML, as primeiras \estrangeiro{webapps} não passavam se sites que exibiam as páginas em determinada sequencia, baseando-se em dados de entrada do usuário.
-
-Com o tempo, novas tecnologias surgiram para permitir que mais pudesse ser feito com o HTML. A principal delas surgiu em 1995: as linguagens \emph{client-side}.
-
-Uma linguagem \estrangeiro{client-side} é uma linguagens de \estrangeiro{script} que é executada no lado \emph{cliente} da aplicação, ou seja, dentro do navegador de internet. Elas permitiram que alguma lógica fosse adicionada às páginas HTML, tornando as \estrangeiro{webapps} mais iterativas. Atualmente a principal linguagem \estrangeiro{client-side} é o \emph{JavaScript}, já que é a linguagem de \estrangeiro{script} padrão do HTML5\footnote{O HTML5 é a versão do HTML em desenvolvimento}\cite{whatwg:HTML}.
-
-Com o uso de JavaScript, as aplicações tem se tornado tão dinâmicas que já se assemelham aos aplicativos que rodam no \estrangeiro{desktop}, algumas até substituindo esses aplicativos.
-
-Hoje em dia milhões de pessoas utilizam \estrangeiro{webapps} quando acessam o webmail, o bate-papo, etc.
+Com o uso de JavaScript, as aplicações \estrangeiro{web} têm se tornado bastante dinâmicas e já se assemelham às aplicações tradicionais (aplicativos que são executados no \estrangeiro{desktop}), algumas até substituindo essas aplicações tradicionais. Atualmente, milhões de pessoas utilizam aplicações \estrangeiro{web} quando acessam o \estrangeiro{webmail}, o bate-papo, compras online, \estrangeiro{internet banking}, etc
 
 \subsection{Componentes de uma webapp}
-Como dito anteriormente, no lado cliente da aplicação o único requisito é um navegador de internet, que vai interpretar tudo que vier do servidor.
-
-As sessões seguintes descrevem os componentes necessários no lado servidor.
+Sabe-se que no lado cliente da aplicação o único componente necessário é um navegador de internet, que vai interpretar a informação proveniente do servidor. A seguir são descritos os componentes necessários no lado servidor.
 
 \subsubsection{Servidor de dados}
-A maioria das aplicações web lidam com armazenamento de informações, temporária ou permanentemente. Isso pode ser feito utilizando Sistemas Gerenciadores de Banco de Dados (SGBD's) ou sistemas mais simples, que podem chegar a arquivos de texto.
 
-São as máquinas mais protegidos da empresa, já que os dados de todos os usuários da aplicação ficam armazenados nele.
+A maioria das aplicações \estrangeiro{web} lida com armazenamento de informações, temporária ou permanentemente. Isso pode ser feito utilizando Sistemas Gerenciadores de Banco de Dados (SGBD's) ou outros sistemas mais simples, que podem chegar a arquivos de texto. 
 
-A configuração desses servidores tem um impacto muito grande na performance da aplicação. Essas são as máquinas que possuem hardware mais moderno e recebem investimentos com maior frequência.
+Servidores de dados são os computadores mais protegidos da empresa, já que armazenam os dados de todos os usuários da aplicação. A configuração desses servidores tem um impacto muito grande no desempenho da aplicação. Essas são as máquinas que possuem hardware mais moderno e recebem investimentos com maior frequência.
 
 \subsubsection{Servidor HTTP}
-O servidor HTTP (\estrangeiro{Hypertext Transfer Protocol}, ou Protocolo de Transferência de Hipertexto), ou servidor web como é mais conhecido, é o núcleo da \estrangeiro{webapp}. Esses servidores recebem as requisições dos clientes e respondem enviando representações do que o cliente pediu. Essas representações podem ser imagens, vídeos, documentos HTML, etc.
+O servidor HTTP (\estrangeiro{Hypertext Transfer Protocol}, - Protocolo de Transferência de Hipertexto), ou servidor \estrangeiro{web}, como é mais conhecido, é o núcleo da aplicação \estrangeiro{web}. Esses servidores recebem as requisições dos clientes e respondem enviando representações do que o cliente pediu. Essas representações podem ser imagens, vídeos, documentos HTML, etc. 
 
-O HTTP é o protocolo padrão para transferência de dados pela internet e está na versão 1.1\cite{RFC:2616}. A figura \ref{fig:TemplateHTTP} mostra o formato de uma requisição HTTP.
+O HTTP é o protocolo padrão para transferência de dados pela internet e está atualmente na versão 1.1\cite{RFC:2616}. A figura \ref{fig:TemplateHTTP} mostra o formato de uma requisição HTTP.
 
 \figura{TemplateHTTP}{Formato de uma requisição HTTP}{7cm}
 
-\estrangeiro{Host}, \estrangeiro{Cookie} e \estrangeiro{From} são os cabeçalhos da requisição. Uma requisição pode ter qualquer quantidade de cabeçalhos, padronizados ou personalizados. Eles são utilizados para enviar \emph{meta-informações} com cada requisição, ou seja, enviar informações adicionais sobre o recurso que está sendo transmitido. Exemplos de cabeçalhos comumente usados são:
-\begin{description}
+Na Figura \ref{fig:TemplateHTTP}, ``\estrangeiro{Host}'', ``\estrangeiro{Cookie}'' e ``\estrangeiro{From}'' são os cabeçalhos da requisição.  Uma requisição pode ter qualquer quantidade de cabeçalhos, padronizados ou personalizados.  Eles são utilizados para enviar meta-informações com cada requisição, ou seja, enviar informações adicionais sobre o recurso que está sendo transmitido. Exemplos de cabeçalhos comumente usados são:
+\begin{description*}
 	\item[Host:] identifica o domínio que está sendo acessado;
 	\item[From:] contém o \estrangeiro{e-mail} do usuário que fez a requisição;
-	\item[Cookie:] contém informações de autenticação em alguma aplicação;
+	\item[Cookie:] contém informações de autenticação na aplicação em questão;
 	\item[Content-Type:] informa o tipo de dados em que o conteúdo da requisição está codificado;
 	\item[Content-Length:] informa o tamanho do conteúdo da requisição;
-\end{description}
+\end{description*}
 
 O \emph{método} utilizado na requisição indica o que o servidor deve fazer com o recurso transmitido. Dois métodos principais são utilizados em uma aplicação web: \emph{GET} e \emph{POST}.
 
@@ -71,14 +61,12 @@ Já o método \texttt{POST} é utilizado quando o cliente deseja enviar informações
 O tipo \texttt{application/x-www-form-urlencoded} é utilizado como padrão no HTML\cite{W3C:HTML4} para envio de formulários. Neste formato, apenas caracteres ASCII\footnote{O \estrangeiro{American Standard Code for Information Interchange} é uma codificação de caracteres baseado no alfabeto inglês. Consiste de 128 caracteres, sendo 94 visíveis, 33 caracteres de controle (caracteres que informam como o texto deve ser processado) e o caractere de espaço.} podem ser utilizados, então caracteres não-ASCII devem ser codificados no formato $\%HH$, onde \texttt{HH} são dois dígitos hexadecimais, e espaços são substituídos por $+$. Os campos são enviados como pares \texttt{nome=valor}, separados pelo caractere \texttt{\&}.
 
 \subsubsection{Linguagem \estrangeiro{server-side}}
-O servidor web sozinho só é capaz de enviar conteúdo estático para o cliente.
+O servidor \estrangeiro{web} sozinho só é capaz de enviar conteúdo estático para o cliente. O lado servidor da aplicação (\estrangeiro{server-side}) também entende alguma linguagem de programação. Essa linguagem de programação é responsável por construir a resposta para a requisição dinamicamente, ler e  gravar informações no servidor de dados, etc.
 
-O lado servidor da aplicação (\emph{server-side}) também entende alguma linguagem de programação e ela é responsável por montar a resposta para a requisição dinamicamente, ler a gravar no servidor de dados, etc.
-
-Exemplos comuns de linguagens rodando no servidor são o PHP, ASP, JSP, ColdFusion, etc.
+Exemplos comuns de linguagens rodando no servidor são o PHP (\estrangeiro{Hypertext Preprocessor}), ASP (\estrangeiro{Active Server Pages}), JSP (\estrangeiro{Java Server Pages}), ColdFusion, etc.
 
 \subsection{Vantagens das aplicações Web}
-Aplicações web vem ganhando muita atenção tanto em ambientes corporativos como no uso pessoal. Isso porque oferecem algumas vantagens sobre as aplicações de \textit{desktop}\cite{AJAX-PHP-WebApps}:
+Aplicações \estrangeiro{web} vem ganhando muita atenção tanto em ambientes corporativos como no uso pessoal. Isso porque oferecem algumas vantagens sobre as aplicações de \textit{desktop}\cite{AJAX-PHP-WebApps}:
 \begin{description*}
 	\item[Fácil distribuição:] Basta um navegador e uma conexão com a internet ou intranet. Não é necessário que o departamento de TI instale a aplicação em cada estação da empresa;
 	\item[Independente de plataforma:] O usuário final pode usar Windows, Mac, Linux, Solaris, iPhone, etc. como sistema operacional e qualquer navegador disponível\footnote{Se a aplicação foi construída utilizando os padrões da W3C corretamente}.
@@ -87,53 +75,53 @@ Aplicações web vem ganhando muita atenção tanto em ambientes corporativos como n
 
 Alguns problemas também surgem ao utilizar essa arquitetura. Os principais deles são:
 \begin{description*}
-	\item[Dependência da rede:] Todos os usuários do sistema dependem da rede ou internet para utilizá-lo. Se ocorrer algum problema com esse link, todos os usuários ficarão comprometidos.
-	\item[Dependência do servidor:] Se o servidor cair, o sistema todo cai junto.
+	\item[Dependência da rede:] Todos os usuários do sistema dependem da rede ou internet para utilizá-lo. Se ocorrer algum problema com o link da internet utilizado, todos os usuários ficarão comprometidos.
+	\item[Dependência do servidor:] Se o servidor ficar indisponível, o sistema todo também fica.
 \end{description*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Serviços Web}
-Um \emph{web service} (serviço web) é um software que implementa diversas tecnologias para transferência e representação de dados que, quando combinadas, que permitem a comunicação entre os diversos dispositivos conectados em uma rede\cite{W3C:ws-arch}.
+\section{\estrangeiro{Web services}}
+Um \emph{web service} (serviço web) é um software que implementa diversas tecnologias para transferência e representação de dados que, quando combinadas, permitem a comunicação entre os diversos dispositivos conectados em uma rede\cite{W3C:ws-arch}.
 
-Diferentemente das \estrangeiro{webapps} onde único cliente é o navegador, um \estrangeiro{web service} pode ter os mais variados tipos de clientes, como aplicativos próprios, aplicativos de terceiros, linha de comando, celulares e até mesmo \estrangeiro{webapps}.
+Diferentemente das aplicações \estrangeiro{web}, onde único cliente é o navegador de internet, um \estrangeiro{web service} pode ter os mais variados tipos de clientes, como aplicativos próprios, aplicativos de terceiros, linha de comando, celulares e até mesmo aplicações \estrangeiro{web} ou outros \estrangeiro{web services}.
 
 Um \estrangeiro{web service} é um software que fica no servidor e que responde a requisições dos clientes.
 
 \figura{WebServiceLoja}{Exemplo de aplicação web utilizando web services}{10cm}
 
-A figura \ref{fig:WebServiceLoja} como funciona uma aplicação web de cotação de preços que consome os serviços oferecidos pelos diversos \estrangeiro{web services} das lojas virtuais. A \emph{Aplicação Cliente} é o navegador de internet rodando no computador do usuário. Quando o usuário consulta o preço de um produto, a aplicação web \emph{Sistema de Pesquisa} consulta nos \emph{web services} das lojas virtuais a cotação deste produto. Com as respostas obtidas dos \estrangeiro{web services}, o Sistema de Pesquisa monta a página com as informações que o cliente deseja.
+A figura \ref{fig:WebServiceLoja} mostra como funciona uma aplicação \estrangeiro{web} de cotação de preços que consome os serviços oferecidos pelos diversos \estrangeiro{web services} das lojas virtuais. A \emph{Aplicação Cliente} é o navegador de internet rodando no computador do usuário. Quando o usuário consulta o preço de um produto, a aplicação \estrangeiro{web} \emph{Sistema de Pesquisa} consulta nos \estrangeiro{web services} das lojas virtuais a cotação deste produto. Com as respostas obtidas dos \estrangeiro{web services}, o Sistema de Pesquisa monta a página com as informações que o cliente deseja.
 
-Antes de começar a implementação de um web service, é preciso definir as tecnologias que serão utilizadas para representar os dados e para transferi-los.
+Antes de começar a implementação de um \estrangeiro{web service}, é preciso definir as tecnologias que serão utilizadas para representar os dados e para transferi-los.
 
 \subsection{Representação dos dados}
-A tecnologia para representação dos dados é o idioma que nosso web service fala. De nada adianta nosso professor falar latim se nossos alunos entendem apenas português. Da mesma forma, de nada adianta o servidor enviar os dados utilizando uma representação que os clientes não são capazes de interpretar.
+A tecnologia para representação dos dados é o idioma que o web service fala. De nada adianta um professor falar latim se seus alunos entendem apenas português. Da mesma forma, de nada adianta o servidor enviar os dados utilizando uma representação que os clientes não são capazes de interpretar.
 
-Não existe nenhuma norma que obrigue a utilizar determinada representação para desenvolvimento de um \estrangeiro{web service}\footnote{A natureza do SOAP induz o serviço a utilizar XML, mas não é obrigatório usar SOAP para criação do serviço.}. Atualmente os formatos mais utilizados são o XML (\estrangeiro{Extensible Markup Language}, ou Linguagem de Marcação Extensível) e o JSON (\estrangeiro{JavaScript Object Notation}, ou Notação de Objeto JavaScript).
+Não existe nenhuma norma que obrigue a utilizar determinada representação para desenvolvimento de um \estrangeiro{web service}\footnote{A natureza do SOAP induz à utilização de XML, mas não é obrigatório usar SOAP para criação de um \estrangeiro{web service}.}. Atualmente os formatos mais utilizados são o XML (\estrangeiro{Extensible Markup Language}, ou Linguagem de Marcação Extensível) e o JSON (\estrangeiro{JavaScript Object Notation}, ou Notação de Objeto JavaScript).
 
 \subsubsection{XML}
 A XML é uma linguagem de marcação padronizada pela W3C\cite{W3C:XML}, que a define como um formato para representar informações estruturadas na forma de texto. Sua adoção se dá principalmente pelo fato de ter sido criada pensando em internet, em facilidade de uso, em ser independente de plataforma ou linguagem de programação e em ser legível para máquinas e humanos.
 
 \figura{XMLUsuarios}{Exemplo de documento XML}{7cm}
 
-A figura \ref{fig:XMLUsuarios} mostra um exemplo de documento XML. A primeira linha contém a declaração XML, que identifica a versão da especificação da XML sendo utilizada (1.0) e o conjunto de caracteres utilizado (UTF-8). Na segunda linha está o elemento raiz do documento (``usuarios''). Os documentos XML também podem ser representados em estrutura de árvore\cite{W3Schools:XML}, que tem esse elemento como raíz. As linhas seguintes definem elementos filhos da raiz, ou até mesmo filhos dos filhos da raiz. A última linha encerra o elemento raiz, encerrando o documento. A figura \ref{fig:XMLUsuariosArvore} mostra esse mesmo documento em formato de árvore.
+A figura \ref{fig:XMLUsuarios} mostra um exemplo de documento XML que representa um usuário do sistema. A primeira linha contém a declaração XML, que identifica a versão da especificação da XML sendo utilizada (1.0) e o conjunto de caracteres utilizado (UTF-8). Na segunda linha está o elemento raiz do documento (``usuarios''). Os documentos XML também podem ser representados em estrutura de árvore\cite{W3Schools:XML}, que tem esse elemento como raiz. As linhas seguintes definem elementos filhos da raiz, ou até mesmo filhos dos filhos da raiz. A última linha encerra o elemento raiz, encerrando o documento. A figura \ref{fig:XMLUsuariosArvore} mostra esse mesmo documento em formato de árvore.
 
 \figura{XMLUsuariosArvore}{Representação de documento XML em árvore}{7cm}
 
-Os documentos XML são formados por duas construções principais: as tags (marcadores) e seus atributos. Uma tag é um elemento entre os sinais de ``<'' e ``>'' e os atributos são pares nome/valor que ficam dentro da tag. No exemplo da Figura \ref{fig:XMLUsuarios}, ``usuarios'', ``usuario'', ``nome'' e ``nascimento'' são tags, enquanto ``login'' é um atributo da tag ``usuario''. A especificação do XML não define nenhuma tag ou atributo, cabendo ao desenvolvedor do sistema defini-los.
+Os documentos XML são formados por duas construções principais: as \estrangeiro{tags} (marcadores) e seus atributos. Uma \estrangeiro{tag} é um elemento entre os sinais de ``<'' e ``>'' e os atributos são pares nome/valor que ficam dentro da \estrangeiro{tag}. No exemplo da Figura \ref{fig:XMLUsuarios}, ``usuarios'', ``usuario'', ``nome'' e ``nascimento'' são \estrangeiro{tags}, enquanto ``login'' é um atributo da \estrangeiro{tag} ``usuario''. A especificação do XML não define nenhuma \estrangeiro{tag} ou atributo, cabendo ao desenvolvedor do sistema definí-los.
 
 \subsubsection{JSON}
 Apesar de o XML ser o formato mais utilizado para transferência de dados\cite{Costa-Guilherme:2009:SOA}, ele é um formato que possui muitas regras, o que o torna pesado.
 
-Pensando nisso o formato JSON foi criado e padronizado\cite{IETF:JSON}, com base na sintaxe para criação de objetos da linguagem JavaScript. A figura \ref{fig:JSONUsuarios} mostra como ficaria o documento XML da figura \ref{fig:XMLUsuarios} utilizando o formato JSON.
+Pensando nisso o formato JSON foi criado e padronizado\cite{IETF:JSON}, com base na sintaxe para criação de objetos da linguagem JavaScript. A figura \ref{fig:JSONUsuarios} mostra como ficaria o documento XML da figura \ref{fig:XMLUsuarios}, que representa um usuário do sistema, utilizando o formato JSON.
 
 \figura{JSONUsuarios}{Exemplo de objeto JSON}{5cm}
 
-O JSON é formado por um conjunto de pares nome/valor. O nome é uma \estrangeiro{string} (definido como uma sequenciao de caracteres entre aspas) e o valor pode ser qualquer um dos tipos de dados suportados:
+O JSON é formado por um conjunto de pares nome/valor. O nome é uma \estrangeiro{string} (definido como uma sequência de caracteres entre aspas) e o valor pode ser qualquer um dos tipos de dados suportados:
 \begin{description*}
 	\item[string:] cadeias de caracteres entre aspas;
 	\item[números:] valores numéricos, com ou sem casas decimais;
 	\item[booleanos:] \estrangeiro{true} (verdadeiro) ou \estrangeiro{false} (falso);
-	\item[\estrangeiro{arrays}:] conjunto de valores delimitado por colchetes, como \texttt{[1, ''string``, [3,4], \{``nome'':``fulano''\}]};
+	\item[\estrangeiro{arrays}:] conjunto de valores delimitado por colchetes, como \texttt{[1, [3,4], \{``nome'':``fulano''\}]};
 	\item[objetos:] conjunto de pares nome/valor;
 	\item[vazio:] nenhum valor, representado pela palavra \texttt{null};
 \end{description*}
@@ -150,13 +138,13 @@ Atualmente existem duas formas para transferência de dados que tem sido difundid
 \subsubsection{SOAP}
 O SOAP é um protocolo para troca de informações por meio de mensagens XML sobre um protocolo de aplicação, normalmente o HTTP.  É um dos protocolos mais utilizados para criação de \estrangeiro{web services}, principalmente pelo fato de ser baseado em XML, o que o torna compatível com qualquer linguagem de programação, além de ser uma recomendação da W3C\cite{W3C:SOAP}.
 
-Uma comunicação utilizando SOAP funciona da seguinte forma: quando o cliente se conecta ao serviço, obtém um documento listando os métodos disponíveis, seus parâmetros e tipos de dados. Este documento é chamado \emph{WSDL} (\estrangeiro{Web Services Description Language}, ou Linguagem de Descrição de Serviços Web) , uma linguagem tambem baseada em XML. A descrição de uma mensagem para obter os dados de uma cidade (método \texttt{GetCidade}) é ilustrada na figura \ref{fig:WSDL-Request}. O documento que define sua resposta é ilustrado na figura \ref{fig:WSDL-Response}.
+Uma comunicação utilizando SOAP funciona da seguinte forma: quando o cliente se conecta ao serviço, obtém um documento listando os métodos disponíveis, seus parâmetros e tipos de dados. Este documento é chamado \emph{WSDL} (\estrangeiro{Web Services Description Language}, ou Linguagem de Descrição de Serviços Web) , uma linguagem tambem baseada em XML. As figuras \ref{fig:WSDL-Request} e \ref{fig:WSDL-Response} são partes de um documento WSDL que define uma mensagem para obter os dados de uma cidade (método \texttt{GetCidade}). Na figura \ref{fig:WSDL-Request} está o trecho que define a \emph{requisição}, ou seja, o formato da mensagem que deve ser enviado para o servidor. A figura \ref{fig:WSDL-Response} mostra o trecho que define o formato da \emph{resposta} que o servidor envia.
 
-\figura{WSDL-Request}{Documento WSDL para um serviço que obtém dados de uma cidade - Requisição}{6cm}
+\figura{WSDL-Request}{Documento WSDL para um serviço que obtém dados de uma cidade - Requisição}{7cm}
 
-\figura{WSDL-Response}{Documento WSDL para um serviço que obtém dados de uma cidade - Resposta}{7cm}
+\figura{WSDL-Response}{Documento WSDL para um serviço que obtém dados de uma cidade - Resposta}{8cm}
 
-Tendo este documento, o aplicativo cliente é capaz de fazer a requisição SOAP propriamente dita, enviando uma mensagem HTTP semelhante à da figura \ref{fig:SOAP}. Na linha 6 está a chamada ao método \texttt{GetCidade} e na linha 7 está sendo passado o parâmetro \texttt{Cidade}.
+Tendo este documento, o aplicativo cliente é capaz de fazer a requisição SOAP propriamente dita, enviando uma mensagem HTTP semelhante à da figura \ref{fig:SOAP}. Na linha 6 está a chamada ao método \texttt{GetCidade} e na linha 7 está sendo passado o parâmetro \texttt{Cidade} com um valor informado pelo usuário.
 
 \figura{SOAP}{Requisição SOAP}{9cm}
 
@@ -190,7 +178,7 @@ As \estrangeiro{constraints} que devem ser respeitadas são\cite{REST}:
 	\item[Cliente-servidor:] Deve haver uma clara separação entre as responsabilidades do cliente e do servidor. O servidor não deve se preocupar com como o recurso será exibido, e o cliente não deve se preocupar em como o recurso será armazenado. Isso permite que as duas partes fiquem mais simples e evoluam de forma independente.
 	\item[\estrangeiro{Steteless}:] O servidor não deve guardar nenhuma informação intermediária sobre o processamento. Toda essa informação fica no cliente, e é transmitida na requisição sempre que necessária.
 	\item[\estrangeiro{Cache}:] Deve haver uma marcação que indica se a resposta pode ser guardada pelo cliente para uso futuro ou não.
-	\item[Interface uniforme:] Ter uma interface uniforme permite que o sistema fique mais desacoplado e ajuda que cada componente evolua de forma independente. Neste ponto se estão as URI's.
+	\item[Interface uniforme:] Ter uma interface uniforme permite que o sistema fique mais desacoplado e ajuda que cada componente evolua de forma independente. Neste ponto estão as URI's.
 	\item[Multicamadas:] Um cliente nunca pode assumir que está conectado diretamente ao servidor. Podem existir máquinas intermediárias para aumentar a segurança e escalabilidade do serviço, como \estrangeiro{firewalls}, servidores \estrangeiro{proxy}, etc. Da mesma forma, o servidor não pode assumir que está conectado diretamente ao cliente.
 	\item[Código sob demanda:] Esta \estrangeiro{constraint} é opcional e diz que o cliente deve ser capaz de executar código enviado pelo servidor.
 \end{description*}
