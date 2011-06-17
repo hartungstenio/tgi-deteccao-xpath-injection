@@ -1,12 +1,14 @@
 \chapter{XPath e XPath Injection} \label{chap:XPath}
-A maioria das aplicações web utilizam sistemas gerenciadores de bancos de dados (SGBD) para armazenar seus dados\cite{devWorks:XPath}, especialmente porque esses sistemas ajudam a garantir a integridade e facilitam a manipulação das informações armazenadas. Porém, utilizar um SGBD nem sempre é a melhor solução. Manter um SGBD não é uma tarefa barata. É preciso um especialista em cada SGBD utilizado, monitoramento constante, aquisição de servidores e até mesmo licenças de uso desses sistemas, etc. Para uma aplicação pequena, por exemplo, um  esses gastos não compensariam. Também, se alguma customização for feita para um caso específico, não compensaria alterar a estrutura da base de dados da aplicação para contemplar esse único caso. Para esses tipos de situações, documentos XML se tornam uma opção interessante, com a vantagem de serem legíveis para a aplicação e para seus usuários e desenvolvedores.
+A maioria das aplicações \estrangeiro{web} utilizam sistemas gerenciadores de bancos de dados (SGBD) para armazenar seus dados\cite{devWorks:XPath}, especialmente porque esses sistemas ajudam a garantir a integridade e facilitam a manipulação das informações armazenadas. Porém, utilizar um SGBD nem sempre é a melhor solução. Manter um SGBD não é uma tarefa barata. É preciso um especialista em cada SGBD utilizado, monitoramento constante, aquisição de servidores e até mesmo licenças de uso desses sistemas, etc. Para uma aplicação pequena, por exemplo, esses gastos não compensariam. Também, se alguma customização for feita para um caso específico, não compensaria alterar a estrutura da base de dados da aplicação para contemplar esse único caso. Para esses tipos de situações, documentos XML se tornam uma opção interessante, com a vantagem de serem legíveis para a aplicação e para seus usuários e desenvolvedores.
+
+As seções seguintes introduzem a linguagem \estrangeiro{XPath}, utilizada para realizar consultas em documentos XML, e apresentam as vulnerabilidades do tipo \estrangeiro{XPath Injection}.
 
 \section{Entendendo o XPath}
 A XML Path Language, ou XPath, como é mais conhecida, é uma linguagem de consulta capaz de localizar elementos de um documento XML e até mesmo realizar cálculos com esses elementos\cite{W3C:XPath}.
 
-Em uma consulta XPath, o documento XML é visto como uma árvore, onde cada tag, cada atributo, cada texto, cada comentário, etc. é tratado como um nó\cite{W3Schools:XPath}. A linguagem XPath permite navegar por essa árvore, selecionando um conjunto de nós baseado em uma série de critérios. Desde 1999, XPath é uma recomendação da W3C\cite{W3C:XPath}. Suas principais expressões são:
+Em uma consulta XPath, o documento XML é visto como uma árvore, onde cada \estrangeiro{tag}, cada atributo, cada texto, cada comentário, etc. é tratado como um nó\cite{W3Schools:XPath}. A linguagem XPath permite navegar por essa árvore, selecionando um conjunto de nós baseado em uma série de critérios. Desde 1999, XPath é uma recomendação da W3C\cite{W3C:XPath}. Suas principais expressões são:
 \begin{description*}
-  \item[\textit{nome}] - Seleciona todos os filhos com o nome dado
+  \item[\textit{nome}] - Seleciona todos os nós com o nome dado
   \item[/] - Seleciona a partir do nó atual
   \item[//] - Seleciona todos os nós do documento que satisfaçam o critério, partindo do atual
   \item[.] - Seleciona o nó atual
@@ -62,9 +64,7 @@ Na linha 3 é feita a consulta XPath baseando-se no valor de um campo de entrada.
 
 Como não existe nenhuma validação deste campo antes de seu uso, o usuário pode informar qualquer conteúdo para este campo. Por exemplo, se o parâmetro tiver o formato 1000 or 1 = 1, a consulta ficaria ``\texttt{//VALOR[@VALUE >= 1000 or 1 = 1]/USERS/USER/@NAME}'' retornando os nomes de todos os usuários no documento, independente do valor permitido, já que a condição 1 = 1 será sempre verdadeira.
 
-Estudos da WASC\cite{WASC:Statistics} encontraram 64 vulnerabilidades do tipo \estrangeiro{XPath Injection} em 19 aplicações. Nenhuma delas foi detectada pelos \estrangeiro{scanners} de vulnerabilidade utilizados por eles.
-
-Essa vulnerabilidade possui nota 10 utilizando o sistema CVSS (\estrangeiro{Common Vulnerability Scoring System}, sistema que compara as efeitos causados pelas vulnerabilidades) e é classificada como urgente pelo \estrangeiro{Payment Card Industry Security Standards Council} (grupo que define padrões de segurança para empresas que lidam com dados de cartões de crédito e débito)\cite{PCI-DSS}
+Estudos da WASC\cite{WASC:Statistics} encontraram 64 vulnerabilidades do tipo \estrangeiro{XPath Injection} em 19 aplicações. Nenhuma delas foi detectada pelos \estrangeiro{scanners} de vulnerabilidade utilizados por eles. Essa vulnerabilidade possui nota 10 (de um máximo de 10) utilizando o sistema CVSS (\estrangeiro{Common Vulnerability Scoring System}, sistema que compara os efeitos causados pelas vulnerabilidades - quanto mais grave a vulnerabilidade, maior a nota - e é classificada como \emph{urgente} pelo \estrangeiro{Payment Card Industry Security Standards Council} (grupo que define padrões de segurança para empresas que lidam com dados de cartões de crédito e débito - quanto maior a prioridade, mais grave a vulnerabilidade)\cite{PCI-DSS}. Portanto, nos dois sistemas o \emph{XPath Injection} é considerado uma vulnerabilidade grave.
 
 \section{Evitando XPath Injection}
 A melhor maneira de evitar este tipo de ataque é assumir que todos os dados de entrada são suspeitos e precisam ser validados antes de serem utilizados na consulta XPath. Algumas possíveis validações:

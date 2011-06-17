@@ -1,0 +1,11 @@
+\chapter{\estrangeiro{Scanners} de vulnerabilidades} \label{chap:scanners}
+\estrangeiro{Scanners} de vulnerabilidade são uma forma de analisar uma aplicação de forma automática em busca de vulnerabilidades\cite{nuno}. Eles são utilizados como uma forma de detectar problemas gerados pela má codificação da aplicação. A maioria dos \estrangeiro{scanners} de vulnerabilidade são ferramentas comerciais, mas existem alguns gratuitos e até mesmo com o código fonte disponível.
+
+Segundo \cite{Tania:2010:Scanners}, essas ferramentas funcionam em três fases:
+\begin{description*}
+	\item[Configuração:] Nesta fase o \estrangeiro{scanner} deve ser informado sobre a aplicação que ele varrerá, as vulnerabilidades que serão buscadas nessa varredura e informações de conexão com o serviço (proxy - servidor intermediário entre o cliente e a aplicação). É a única fase em que é necessária intervenção do usuário.
+	\item[Rastreamento:] O \estrangeiro{scanner} analisa o conteúdo de cada página da aplicação em busca de \estrangeiro{links} e monta um mapa de como a aplicação está organizada.
+	\item[Exploração:] O \estrangeiro{scanner} faz a busca pelas vulnerabilidades, fazendo simulações da interação com o usuário (simulando um clique em um \estrangeiro{link}, o preenchimento de um formulário, etc.). Ao final deste processo é gerado o relatório com todas as vulnerabilidades detectadas.
+\end{description*}
+
+Os algorítimos utilizados para detecção das vulnerabilidades é próprio de cada \estrangeiro{scanner}, o que faz com que os resultados obtidos sejam variem de \estrangeiro{scanner} para \estrangeiro{scanner}. Isso nos leva a questionar qual dos resultados é o mais correto.
