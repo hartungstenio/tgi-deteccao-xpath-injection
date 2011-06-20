@@ -9,7 +9,19 @@ Os experimentos foram realizados sobre um conjunto de aplicações \estrangeiro{we
 
 Este capítulo descreve como foi a experiência, os \estrangeiro{scanners} utilizados e os resultados obtidos.
 
-\section{Scanners utilizados}
+\section{\estrangeiro{Scanners} de Vulnerabilidade}
+\estrangeiro{Scanners} de vulnerabilidade são uma forma de analisar uma aplicação de forma automática em busca de vulnerabilidades\cite{nuno}. Eles são utilizados como uma forma de detectar problemas gerados pela má codificação da aplicação. A maioria dos \estrangeiro{scanners} de vulnerabilidade são ferramentas comerciais, mas existem alguns gratuitos e até mesmo com o código fonte disponível.
+
+Segundo \cite{Tania:2010:Scanners}, essas ferramentas funcionam em três fases:
+\begin{description*}
+	\item[Configuração:] Nesta fase o \estrangeiro{scanner} deve ser informado sobre a aplicação que ele varrerá, as vulnerabilidades que serão buscadas nessa varredura e informações de conexão com o serviço (proxy - servidor intermediário entre o cliente e a aplicação). É a única fase em que é necessária intervenção do usuário.
+	\item[Rastreamento:] O \estrangeiro{scanner} analisa o conteúdo de cada página da aplicação em busca de \estrangeiro{links} e monta um mapa de como a aplicação está organizada.
+	\item[Exploração:] O \estrangeiro{scanner} faz a busca pelas vulnerabilidades, fazendo simulações da interação com o usuário (simulando um clique em um \estrangeiro{link}, o preenchimento de um formulário, etc.). Ao final deste processo é gerado o relatório com todas as vulnerabilidades detectadas.
+\end{description*}
+
+Os algorítimos utilizados para detecção das vulnerabilidades é próprio de cada \estrangeiro{scanner}, o que faz com que os resultados obtidos sejam variem de \estrangeiro{scanner} para \estrangeiro{scanner}. Isso nos leva a questionar qual dos resultados é o mais correto.
+
+\subsection{Scanners utilizados}
 Antes de começar a avaliação das aplicações, houve uma fase de seleção dos \estrangeiro{scanners} que seriam utilizados. Quinze \estrangeiro{scanners} foram avaliados nesse processo, sendo quatro comerciais e os demais gratuitos ou projetos de código aberto. A maioria desses \estrangeiro{scanners} veio de uma lista mantida pela WASC\cite{WASC:ScannerList} e os demais foram encontrados em avaliações, fóruns, etc. Os \estrangeiro{scanners} utilizados nesse processo de pré avaliação (e seus desenvolvedores) foram:
 \begin{itemize*}
 	\item Acunetix WVS (Acunetix, comercial);
@@ -38,21 +50,21 @@ A maioria desses \estrangeiro{scanners} foram eliminados por:
 
 Após essa pré avaliação, \estrangeiro{scanners} de vulnerabilidade foram selecionados: Arachni, w3af e webCruiser. As seções a seguir descrevem esses scanners.
 
-\subsection{Arachni}
+\subsubsection{Arachni}
 Arachni é um \estrangeiro{framework} (um conjunto de rotinas) para auditoria de aplicações web capaz de detectar grande parte das vulnerabilidades conhecidas. Ele suporta extensões, ou seja, módulos para detecção de novas vulnerabilidades podem ser desenvolvidos e acoplados ao scanner principal\cite{site:arachni}. É um projeto de código aberto e bem documentado, o que facilita seu uso e integração.
 
 Três interfaces principais estão disponíveis: linha de comando, interface web e XMLRPC, permitindo que outras aplicações interajam com o scanner.
 
 Para realização dos testes foi utilizada a versão 0.2.2.2 com a interface de linha de comando.
 
-\subsection{w3af}
+\subsubsection{w3af}
 O w3af (\estrangeiro{Web Application Attack and Audit Framework} também é um \estrangeiro{framework} para exploração de vulnerabilidades em aplicações \estrangeiro{web} \cite{site:w3af}. Ele é dividido em duas partes: o núcleo, responsável por coordenar o processo de exploração da aplicação, e os \estrangeiro{plugins}, que procuram as vulnerabilidades, além de oferecer opções extras para o núcleo. Mais de 100 plugins estão disponíveis\cite{site:w3af:plugins}, capazes de encontrar a maioria dos tipos de vulnerabilidades conhecidos. Dentre os scanners avaliados, foi o único capaz de analisar os documentos WSDL e fazer uma requisição SOAP.
 
 É um projeto de código aberto e desde 2010 está sendo desenvolvido em parceria com a Rapid7\cite{w3af:rapid7}, um dos maiores desenvolvedores de soluções para detecção de vulnerabilidades em aplicações web. Com a parceria, a Rapid7 disponibiliza um time para trabalhar no w3af em troca de utilizar parte da tecnologia em seus próprios softwares.
 
 A versão utilizada para os testes foi a 1.1 (r4300 - r4331\footnote{Como esta é a versão em desenvolvimento, ocorrem atualizações diárias}), utilizando a interface gráfica.
 
-\subsection{WebCruiser - Web Vulnerability Scanner}
+\subsubsection{WebCruiser - Web Vulnerability Scanner}
 \estrangeiro{WebCruiser - Web Vulnerability Scanner} é um \estrangeiro{scanner} de vulnerabilidade e um conjunto de ferramentas de segurança para explorar e proteger aplicações \estrangeiro{web}\cite{site:webcruiser}.
 
 O \emph{WebCruiser} é o único scanner comercial dentre os avaliados. Foi utilizada uma edição Trial da versão 2.5.0.0. Esta versão têm um limite de 30 dias de uso, mas nenhuma limitação quanto aos recursos.
