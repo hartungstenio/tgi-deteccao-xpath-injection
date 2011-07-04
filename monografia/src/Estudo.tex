@@ -41,14 +41,14 @@ Antes de começar a avaliação das aplicações, houve uma fase de seleção dos \estr
 	\item Zed Attack Proxy (OWASP);
 \end{itemize*}
 
-A maioria desses \estrangeiro{scanners} foram eliminados por:
+Três \estrangeiro{scanners} de vulnerabilidade foram selecionados nessa pré avaliação: Arachni, w3af e webCruiser. Os demais \estrangeiro{scanners} tiveram que ser eliminados por apresentarem os seguintes problemas:
 \begin{enumerate*}
 	\item Dificuldades na instalação. Os instaladores de alguns desses \estrangeiro{scanners} não funcionaram.
 	\item Não possuírem documentação. Após instalação do \estrangeiro{scanners}, não havia nenhum manual que ajudasse a usá-lo e a interface não era nada intuitiva.
 	\item Limitações. A versão de avaliação de alguns \estrangeiro{scanners} comerciais possuíam limitação de funcionalidades. Havia um limite de aplicações \estrangeiro{web} que poderiam ser verificadas ou a quantia de vulnerabilidades suportadas era limitada.
 \end{enumerate*}
 
-Após essa pré avaliação, \estrangeiro{scanners} de vulnerabilidade foram selecionados: Arachni, w3af e webCruiser. As seções a seguir descrevem esses scanners.
+As seções a seguir descrevem os \estrangeiro{scanners} selecionados.
 
 \subsubsection{Arachni}
 Arachni é um \estrangeiro{framework} (um conjunto de rotinas) para auditoria de aplicações web capaz de detectar grande parte das vulnerabilidades conhecidas. Ele suporta extensões, ou seja, módulos para detecção de novas vulnerabilidades podem ser desenvolvidos e acoplados ao scanner principal\cite{site:arachni}. É um projeto de código aberto e bem documentado, o que facilita seu uso e integração.
@@ -80,7 +80,7 @@ No ataque com o Arachni, a expressão fica inválida pois uma string é iniciada co
 
 O w3af também deixa uma string em aberto, começando no \texttt{``}, além de deixar um caractere ``solto'' (\texttt{z}) na expressão.
 
-O WebCruiser utilizou um \estrangeiro{approach} diferente para detecção, injetando um conteúdo válido para a expressão e analisando as requisições HTTP para verificar se a vulnerabilidade existe. O conteúdo injetado foi \texttt{99999999' or '7'='7}, deixando a expressão XPath válida e garantindo que pelo menos um nó sempre seja retornado. A figura \ref{fig:XPathWC} mostra como ficou a expressão XPath com o ataque realizado pelo WebCruiser.
+O WebCruiser utilizou uma abordagem diferente para detecção, injetando um conteúdo válido para a expressão e analisando as requisições HTTP para verificar se a vulnerabilidade existe. O conteúdo injetado foi \texttt{99999999' or '7'='7}, deixando a expressão XPath válida e garantindo que pelo menos um nó sempre seja retornado. A figura \ref{fig:XPathWC} mostra como ficou a expressão XPath com o ataque realizado pelo WebCruiser.
 
 \figura{XPathWC}{Exemplo de expressão XPath gerada com ataque do WebCruiser}{12cm}
 

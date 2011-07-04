@@ -24,6 +24,7 @@ namespace Site.Controllers
             XmlDocument doc = new XmlDocument();
             doc.Load(ConfigurationManager.AppSettings["AuthXML"]);
 
+            // //user[@login='username' and password/text() = 'password']/name/text()                                   "']/name/text()
             var x = doc.SelectNodes("//user[@login='" + Request.Form["username"] +
                                     "' and password/text() = '" + Request.Form["password"] +
                                     "']/name/text()");

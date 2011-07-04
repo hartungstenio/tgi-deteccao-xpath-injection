@@ -11,9 +11,7 @@ As seções seguintes apresentam uma breve introdução sobre essas duas tecnologias
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Aplicações \estrangeiro{web}}
-Uma aplicação \estrangeiro{web} é qualquer aplicação que utilize um navegador de internet como cliente\cite{About:WebApps}.
-
-Apesar de o termo \estrangeiro{cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras aplicações \estrangeiro{web} surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory} 
+Uma aplicação \estrangeiro{web} é qualquer aplicação que utilize um navegador de internet como cliente\cite{About:WebApps}. Apesar de o termo \estrangeiro{cloud computing} ter surgido em meados de 2006\cite{zdnet:IntroCloud}, as primeiras aplicações \estrangeiro{web} surgiram por volta de 1987, antes mesmo de a internet se popularizar\cite{About:InternetHistory} 
 
 Aplicações \estrangeiro{web} funcionam utilizando uma arquitetura cliente-servidor. Nessa arquitetura, o cliente (navegador de internet) solicita um recurso do servidor. O servidor, por sua vez, responde com uma representação do recurso solicitado em um formato que o navegador pode entender: a HTML (\estrangeiro{Hypertext Markup Language}),  Linguagem de Marcação de Hipertexto. 
 
@@ -23,17 +21,16 @@ Linguagens \estrangeiro{client-side} são linguagens de programação que são execu
 
 Com o uso de JavaScript, as aplicações \estrangeiro{web} têm se tornado bastante dinâmicas e já se assemelham às aplicações tradicionais (aplicativos que são executados no \estrangeiro{desktop}), algumas até substituindo essas aplicações tradicionais. Atualmente, milhões de pessoas utilizam aplicações \estrangeiro{web} quando acessam o \estrangeiro{webmail}, o bate-papo, compras online, \estrangeiro{internet banking}, etc
 
-\subsection{Componentes de uma webapp}
-Sabe-se que no lado cliente da aplicação o único componente necessário é um navegador de internet, que vai interpretar a informação proveniente do servidor. A seguir são descritos os componentes necessários no lado servidor.
+\subsection{Arquitetura de uma Aplicação \estrangeiro{web}}
+Uma aplicação \estrangeiro{web} utiliza uma arquitetura multicamadas. As principais camadas são a camada de apresentação, camada de negócios e camada de persistência.
 
-\subsubsection{Servidor de dados}
+\subsubsection{Camada de Apresentação}
+A \emph{camada de apresentação} é a interface da aplicação apresentada aos usuários. É a parte da aplicação exibida no navegador \estrangeiro{web}, com a qual o usuário pode interagir.
 
-A maioria das aplicações \estrangeiro{web} lida com armazenamento de informações, temporária ou permanentemente. Isso pode ser feito utilizando Sistemas Gerenciadores de Banco de Dados (SGBD's) ou outros sistemas mais simples, que podem chegar a arquivos de texto. 
+\subsubsection{Camada de Negócios}
+É a camada responsável pela lógica de negócios da aplicação. É a camada que serve como intermediária entre a as camadas de apresentação e de persistência, processando os dados que o usuário entra e passando-os para a camada de persistência, ou lendo os dados que o usuário solicitou e exibindo-os na camada de apresentação.
 
-Servidores de dados são os computadores mais protegidos da empresa, já que armazenam os dados de todos os usuários da aplicação. A configuração desses servidores tem um impacto muito grande no desempenho da aplicação. Essas são as máquinas que possuem hardware mais moderno e recebem investimentos com maior frequência.
-
-\subsubsection{Servidor HTTP}
-O servidor HTTP (\estrangeiro{Hypertext Transfer Protocol}, - Protocolo de Transferência de Hipertexto), ou servidor \estrangeiro{web}, como é mais conhecido, é o núcleo da aplicação \estrangeiro{web}. Esses servidores recebem as requisições dos clientes e respondem enviando representações do que o cliente pediu. Essas representações podem ser imagens, vídeos, documentos HTML, etc. 
+Essa camada normalmente é formada por um servidor HTTP (\estrangeiro{Hypertext Transfer Protocol}, - Protocolo de Transferência de Hipertexto), ou servidor \estrangeiro{web}, como é mais conhecido, que recebe as requisições dos clientes e respondem enviando representações do que o cliente pediu. Essas representações podem ser imagens, vídeos, documentos HTML, etc.
 
 O HTTP é o protocolo padrão para transferência de dados pela internet e está atualmente na versão 1.1\cite{RFC:2616}. A figura \ref{fig:TemplateHTTP} mostra o formato de uma requisição HTTP.
 
@@ -60,10 +57,14 @@ Já o método \texttt{POST} é utilizado quando o cliente deseja enviar informações
 
 O tipo \texttt{application/x-www-form-urlencoded} é utilizado como padrão no HTML\cite{W3C:HTML4} para envio de formulários. Neste formato, apenas caracteres ASCII\footnote{O \estrangeiro{American Standard Code for Information Interchange} é uma codificação de caracteres baseado no alfabeto inglês. Consiste de 128 caracteres, sendo 94 visíveis, 33 caracteres de controle (caracteres que informam como o texto deve ser processado) e o caractere de espaço.} podem ser utilizados, então caracteres não-ASCII devem ser codificados no formato $\%HH$, onde \texttt{HH} são dois dígitos hexadecimais, e espaços são substituídos por $+$. Os campos são enviados como pares \texttt{nome=valor}, separados pelo caractere \texttt{\&}.
 
-\subsubsection{Linguagem \estrangeiro{server-side}}
 O servidor \estrangeiro{web} sozinho só é capaz de enviar conteúdo estático para o cliente. O lado servidor da aplicação (\estrangeiro{server-side}) também entende alguma linguagem de programação. Essa linguagem de programação é responsável por construir a resposta para a requisição dinamicamente, ler e  gravar informações no servidor de dados, etc.
 
 Exemplos comuns de linguagens rodando no servidor são o PHP (\estrangeiro{Hypertext Preprocessor}), ASP (\estrangeiro{Active Server Pages}), JSP (\estrangeiro{Java Server Pages}), ColdFusion, etc.
+
+\subsubsection{Camada de Persistência}
+A maioria das aplicações \estrangeiro{web} lida com armazenamento de informações, temporária ou permanentemente. Isso pode ser feito utilizando Sistemas Gerenciadores de Banco de Dados (SGBD's) ou outros sistemas mais simples, que podem chegar a arquivos de texto. A camada de persistência é responsável por armazenar essas informações.
+
+Servidores de dados que compõem a camada de persistência são os computadores mais protegidos da empresa, já que armazenam os dados de todos os usuários da aplicação. A configuração desses servidores tem um impacto muito grande no desempenho da aplicação. Essas são as máquinas que possuem hardware mais moderno e recebem investimentos com maior frequência.
 
 \subsection{Vantagens das aplicações Web}
 Aplicações \estrangeiro{web} vem ganhando muita atenção tanto em ambientes corporativos como no uso pessoal. Isso porque oferecem algumas vantagens sobre as aplicações de \textit{desktop}\cite{AJAX-PHP-WebApps}:
