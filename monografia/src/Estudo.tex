@@ -1,11 +1,11 @@
 \chapter{Estudo realizado} \label{chap:Estudo}
 Os experimentos foram realizados sobre um conjunto de aplicações \estrangeiro{web} e \estrangeiro{web services}, cada qual contendo uma ou várias vulnerabilidades do tipo \estrangeiro{XPath Injection}, totalizando 32 vulnerabilidades. Algumas dessas aplicações eram proprietárias, e muitos detalhes sobre elas não podem ser dados. As aplicações analisadas envolviam:
-\begin{itemize*}
+\begin{enumerate*}
 	\item Uma aplicação \estrangeiro{web} que era o contato entre uma empresa e seus representantes. Os representantes da empresa incluem os pedidos de venda nessa aplicação e conseguem visualizar relatórios, como histórico de vendas e comissões;
 	\item Uma aplicação \estrangeiro{web} para registro de atendimentos utilizado por uma equipe de suporte;
 	\item Um \estrangeiro{web service} para cálculo de impostos;
 	\item Uma base de \estrangeiro{web services} para testes cedida pela Universidade de Coimbra;
-\end{itemize*}
+\end{enumerate*}
 
 Este capítulo descreve como foi a experiência, os \estrangeiro{scanners} utilizados e os resultados obtidos.
 
@@ -138,4 +138,4 @@ Nenhum falso-positivo foi informado, porém pode-se observar que existem muitos c
 
 O Arachni e o w3af não só detectaram a mesma quantia de vulnerabilidades, mas detectaram as mesmas vulnerabilidades. Isso já era esperado, já que esses dois \estrangeiro{scanners} possuem implementações parecidas para detecção desse tipo de vulnerabilidade. Pode-se observar que o mínimo de tratamento de erros é necessário para enganar esses \estrangeiro{scanners}. Se uma exceção dizendo que ocorreu um erro na expressão XPath não for disparada, esses \estrangeiro{scanners} já não conseguem detectar a vulnerabilidade. O WebCruiser foi capaz de detectar algumas dessas aplicações com tratamento de erros, o que mostra que ele realmente analisa até os cabeçalhos da resposta HTTP em busca de \estrangeiro{Cookies} ou outras informações relevantes. Mas na maioria dos casos onde não ouve nenhuma alteração nos cabeçalhos HTTP ou nenhum erro relacionado a XPath foi disparado, mesmo o WebCruiser falhou na análise.
 
-Apenas o w3af foi capaz de analisar os serviços que utilizavam SOAP, mas nenhuma das vulnerabilidades nesses serviços foi detectada.
+A maior parte das vulnerabilidades (duas pelo Arachni e o w3af e 3 pelo WebCruiser) foi encontrada na aplicação 2 e as demais na aplicação 1. Apenas o w3af foi capaz de analisar os serviços que utilizavam SOAP (aplicação 4), mas nenhuma das vulnerabilidades nesses serviços foi detectada.

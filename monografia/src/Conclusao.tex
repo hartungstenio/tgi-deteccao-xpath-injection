@@ -1,10 +1,8 @@
 \chapter{Conclusão} \label{chap:Conclusao}
-Este estudo apresentou os resultados de três \estrangeiro{scanners} de vulnerabilidade na detecção de uma amostra com mais de trinta vulnerabilidades comprovadas do tipo \estrangeiro{XPath Injection}.
-
-Apesar de os \estrangeiro{scanners} terem conseguido números melhores em outros tipos de vulnerabilidades, pode-se perceber que não é tão simples detectar \estrangeiro{XPath Injection} em uma aplicação, já que apenas 15\% das vulnerabilidades foram encontradas.
+Este estudo apresentou os resultados de três \estrangeiro{scanners} de vulnerabilidade na detecção de uma amostra com mais de trinta vulnerabilidades comprovadas do tipo \estrangeiro{XPath Injection}. Apesar de os \estrangeiro{scanners} terem conseguido números melhores em outros tipos de vulnerabilidades, pode-se perceber que não é tão simples detectar \estrangeiro{XPath Injection} em uma aplicação, já que apenas 15\% das vulnerabilidades foram encontradas.
 
 Outra limitação que foi observada foi que nenhum dos \estrangeiro{scanners} é capaz de analisar serviços \estrangeiro{RESTful}. Para análise desses serviços, o código deve ser injetado diretamente na URI e as respostas HTTP devem ser observadas, o que deve alterar todos os algorítimos para análise de \estrangeiro{XPath Injection}. Tentar forçar uma expressão inválida esperando ver esse erro na resposta pode gerar falta de cobertura, pois o HTTP possui seus possíveis erros definidos\footnote{É definido um código de erro e uma descrição para a maioria dos tipos de erro possíveis. É possível definir erros customizados, mas eles não ficam no conteúdo da requisição, mas nos cabeçalhos}. Analisar os cabeçalhos da requisição pode gerar vários falso-positivos, já que serviços \estrangeiro{RESTful} utilizam esses cabeçalhos para passar informações em toda requisição.
 
 Os resultados mostram que escolher um \estrangeiro{scanner} de vulnerabilidade não é fácil. Diversos fatores devem ser levados em consideração, como o tempo necessário para varrer a aplicação, número de resultados encontrados, vulnerabilidades suportadas, etc.
 
-Estudos futuros devem utilizar outros tipos de vulnerabilidades além do \estrangeiro{XPath Injection}, e procurar outros \estrangeiro{scanners}.
+Estudos futuros devem utilizar outros tipos de vulnerabilidades além do \estrangeiro{XPath Injection}, como \estrangeiro{SQL Injection}, ataques de força bruta e \estrangeiro{Cross Site Scripting}, que são vulnerabilidades comumente encontradas em aplicações \estrangeiro{web}, e procurar outros \estrangeiro{scanners}.
